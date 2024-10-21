@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetherapp Ventures - Aether Terminal</title>
+    <style>
+        :root {
+            --primary-color: #6200ea;
+            --secondary-color: #3700b3;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #b388ff;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 5rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .terminal-demo {
+            background-color: #1e1e1e;
+            padding: 5rem 0;
+            color: white;
+        }
+
+        .terminal-window {
+            background-color: #0c0c0c;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .close { background-color: #ff5f56; }
+        .minimize { background-color: #ffbd2e; }
+        .maximize { background-color: #27c93f; }
+
+        .terminal-content {
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .command-line {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: #0f0;
+            margin-right: 10px;
+        }
+
+        .command {
+            color: #fff;
+        }
+
+        .output {
+            color: #0ff;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Aetherapp</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Aether Terminal</h1>
+                <p>Experience the next generation Windows 11 Terminal with enhanced productivity and customization.</p>
+                <a href="#" class="cta-button">Download Now</a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Advanced Customization</h3>
+                        <p>Tailor your terminal experience with extensive theming and layout options.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Multi-Tab Support</h3>
+                        <p>Effortlessly manage multiple sessions with intuitive tab management.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Intelligent Command Suggestions</h3>
+                        <p>Boost your productivity with AI-powered command suggestions and auto-completion.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Seamless Integration</h3>
+                        <p>Perfectly integrated with Windows 11 for a native and fluid experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="terminal-demo">
+            <div class="container">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-button close"></div>
+                        <div class="terminal-button minimize"></div>
+                        <div class="terminal-button maximize"></div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="command-line">
+                            <span class="prompt">C:\Users\AetherUser&gt;</span>
+                            <span class="command">aether --version</span>
+                        </div>
+                        <div class="output">Aether Terminal v1.5.2</div>
+                        <div class="command-line">
+                            <span class="prompt">C:\Users\AetherUser&gt;</span>
+                            <span class="command">aether --theme cosmic</span>
+                        </div>
+                        <div class="output">Theme 'Cosmic' applied successfully.</div>
+                        <div class="command-line">
+                            <span class="prompt">C:\Users\AetherUser&gt;</span>
+                            <span class="command" id="typing-command"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Aetherapp Ventures. All rights reserved.</p>
+            <p>Contact: info@aetherapp.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Typing animation for the terminal demo
+        const commands = [
+            'aether --update',
+            'aether --config edit',
+            'aether --plugin install productivity-boost'
+        ];
+        let commandIndex = 0;
+        let charIndex = 0;
+
+        function typeCommand() {
+            if (commandIndex < commands.length) {
+                const command = commands[commandIndex];
+                const typingCommand = document.getElementById('typing-command');
+                
+                if (charIndex < command.length) {
+                    typingCommand.textContent += command.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeCommand, 100);
+                } else {
+                    setTimeout(() => {
+                        const output = document.createElement('div');
+                        output.className = 'output';
+                        output.textContent = `Command '${command}' executed successfully.`;
+                        typingCommand.parentNode.parentNode.appendChild(output);
+
+                        const newCommandLine = document.createElement('div');
+                        newCommandLine.className = 'command-line';
+                        newCommandLine.innerHTML = '<span class="prompt">C:\\Users\\AetherUser&gt;</span><span class="command" id="typing-command"></span>';
+                        typingCommand.parentNode.parentNode.appendChild(newCommandLine);
+
+                        commandIndex++;
+                        charIndex = 0;
+                        typeCommand();
+                    }, 1000);
+                }
+            } else {
+                setTimeout(resetTypingAnimation, 3000);
+            }
+        }
+
+        function resetTypingAnimation() {
+            const terminalContent = document.querySelector('.terminal-content');
+            terminalContent.innerHTML = `
+                <div class="command-line">
+                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
+                    <span class="command">aether --version</span>
+                </div>
+                <div class="output">Aether Terminal v1.5.2</div>
+                <div class="command-line">
+                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
+                    <span class="command">aether --theme cosmic</span>
+                </div>
+                <div class="output">Theme 'Cosmic' applied successfully.</div>
+                <div class="command-line">
+                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
+                    <span class="command" id="typing-command"></span>
+                </div>
+            `;
+            commandIndex = 0;
+            charIndex = 0;
+            typeCommand();
+        }
+
+        // Start the typing animation when the page loads
+        window.addEventListener('load', typeCommand);
+    </script>
+</body>
+</html>
