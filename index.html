@@ -1,307 +1,414 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aetherapp Ventures - Aether Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6200ea',
+                        secondary: '#3700b3',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #6200ea;
-            --secondary-color: #3700b3;
-            --text-color: #333;
-            --bg-color: #f5f5f5;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .float { animation: float 3s ease-in-out infinite; }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(-5px, -5px); }
+            60% { transform: translate(5px, 5px); }
+            80% { transform: translate(5px, -5px); }
+            100% { transform: translate(0); }
         }
+        .glitch:hover { animation: glitch 0.5s ease-in-out; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+        .terminal-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
+        .terminal-3d-inner {
             width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            transform: rotateX(10deg) rotateY(-20deg);
+            transition: transform 0.5s ease-out;
+        }
+        .terminal-3d:hover .terminal-3d-inner {
+            transform: rotateX(0deg) rotateY(0deg);
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .particle {
+            position: absolute;
+            border-radius: 50%;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+        @keyframes particle-animation {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
+        .progress-bar {
+            width: 0;
+            transition: width 1s ease-in-out;
         }
 
-        .nav-links li {
-            margin-left: 1.5rem;
+        .chat-bot {
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-bot:hover {
+            transform: scale(1.1);
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .theme-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .theme-option:hover {
+            transform: scale(1.2);
         }
 
-        .nav-links a:hover {
-            color: #b388ff;
+        .faq-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
         }
 
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-align: center;
-            padding: 150px 0 100px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: white;
-            color: var(--primary-color);
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-3px);
-        }
-
-        .features {
-            padding: 5rem 0;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-item {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .terminal-demo {
-            background-color: #1e1e1e;
-            padding: 5rem 0;
-            color: white;
-        }
-
-        .terminal-window {
-            background-color: #0c0c0c;
-            border-radius: 10px;
-            padding: 20px;
-            font-family: 'Consolas', monospace;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            margin: 0 auto;
+        #game-container {
+            width: 300px;
+            height: 200px;
+            position: relative;
             overflow: hidden;
         }
-
-        .terminal-header {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
+        #player {
+            width: 20px;
+            height: 20px;
+            background-color: #6200ea;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-left: 8px;
-        }
-
-        .close { background-color: #ff5f56; }
-        .minimize { background-color: #ffbd2e; }
-        .maximize { background-color: #27c93f; }
-
-        .terminal-content {
-            height: 300px;
-            overflow-y: auto;
-        }
-
-        .command-line {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .prompt {
-            color: #0f0;
-            margin-right: 10px;
-        }
-
-        .command {
-            color: #fff;
-        }
-
-        .output {
-            color: #0ff;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
+        .obstacle {
+            width: 20px;
+            height: 20px;
+            background-color: #ff0000;
+            position: absolute;
+            top: -20px;
         }
     </style>
 </head>
-<body>
-    <header>
-        <nav class="container">
-            <div class="logo">Aetherapp</div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#demo">Demo</a></li>
-                <li><a href="#contact">Contact</a></li>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+    <header class="bg-primary text-white fixed w-full z-50 transition-all duration-300" id="header">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold glitch">Aetherapp</div>
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#features" class="hover:text-secondary transition-colors">Features</a></li>
+                <li><a href="#demo" class="hover:text-secondary transition-colors">Demo</a></li>
+                <li><a href="#try-it" class="hover:text-secondary transition-colors">Try It</a></li>
+                <li><a href="#memes" class="hover:text-secondary transition-colors">Memes</a></li>
+                <li><a href="#faq" class="hover:text-secondary transition-colors">FAQ</a></li>
+                <li><a href="#contact" class="hover:text-secondary transition-colors">Contact</a></li>
             </ul>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-secondary transition-colors">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Aether Terminal</h1>
-                <p>Experience the next generation Windows 11 Terminal with enhanced productivity and customization.</p>
-                <a href="#" class="cta-button">Download Now</a>
+    <main class="pt-16">
+        <section id="hero" class="bg-gradient-to-br from-primary to-secondary text-white py-20 md:py-32 relative overflow-hidden">
+            <div id="particles" class="absolute inset-0"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 glitch">Aether Terminal</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Experience the next generation Windows 11 Terminal with enhanced productivity, customization, and a dash of humor!</p>
+                <a href="#" class="bg-white text-primary px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-block transform hover:scale-105 transition-transform duration-300">Download Now</a>
             </div>
-        </section>
-
-        <section id="features" class="features">
-            <div class="container">
-                <h2>Key Features</h2>
-                <div class="feature-grid">
-                    <div class="feature-item">
-                        <h3>Advanced Customization</h3>
-                        <p>Tailor your terminal experience with extensive theming and layout options.</p>
+            <div class="terminal-3d mt-12 max-w-4xl mx-auto">
+                <div class="terminal-3d-inner bg-black rounded-lg shadow-2xl overflow-hidden">
+                    <div class="flex justify-between items-center px-4 py-2 bg-gray-800">
+                        <div class="text-sm">Aether Terminal</div>
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
                     </div>
-                    <div class="feature-item">
-                        <h3>Multi-Tab Support</h3>
-                        <p>Effortlessly manage multiple sessions with intuitive tab management.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Intelligent Command Suggestions</h3>
-                        <p>Boost your productivity with AI-powered command suggestions and auto-completion.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Seamless Integration</h3>
-                        <p>Perfectly integrated with Windows 11 for a native and fluid experience.</p>
+                    <div class="p-4 font-mono text-sm text-green-400">
+                        <p>> Welcome to Aether Terminal</p>
+                        <p>> Your gateway to infinite possibilities</p>
+                        <p>> Type 'help' to get started</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="demo" class="terminal-demo">
-            <div class="container">
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <div class="terminal-button close"></div>
-                        <div class="terminal-button minimize"></div>
-                        <div class="terminal-button maximize"></div>
+        <section id="features" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Key Features (Now with Extra Pizzazz!)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-paint-brush text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Advanced Customization</h3>
+                        <p class="mb-4">Tailor your terminal like a bespoke suit. Impress your cat with your color schemes!</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="95%"></div>
+                        </div>
                     </div>
-                    <div class="terminal-content">
-                        <div class="command-line">
-                            <span class="prompt">C:\Users\AetherUser&gt;</span>
-                            <span class="command">aether --version</span>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-clone text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Multi-Tab Support</h3>
+                        <p class="mb-4">Juggle tasks like a pro circus performer. Warning: May cause tab addiction!</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="90%"></div>
                         </div>
-                        <div class="output">Aether Terminal v1.5.2</div>
-                        <div class="command-line">
-                            <span class="prompt">C:\Users\AetherUser&gt;</span>
-                            <span class="command">aether --theme cosmic</span>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-brain text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">AI Command Suggestions</h3>
+                        <p class="mb-4">Our AI is so smart, it finishes your comma- ...nds before you do!</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="85%"></div>
                         </div>
-                        <div class="output">Theme 'Cosmic' applied successfully.</div>
-                        <div class="command-line">
-                            <span class="prompt">C:\Users\AetherUser&gt;</span>
-                            <span class="command" id="typing-command"></span>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                        <i class="fas fa-puzzle-piece text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Seamless Integration</h3>
+                        <p class="mb-4">Fits into Windows 11 like peanut butter in a jelly sandwich. Yum!</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                            <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="98%"></div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="try-it" class="bg-gray-900 text-white py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Try Aether Terminal Now!</h2>
+                <div class="bg-black rounded-lg shadow-2xl overflow-hidden max-w-3xl mx-auto">
+                    <div class="flex justify-between items-center px-4 py-2 bg-gray-800">
+                        <div class="text-sm">Aether Terminal</div>
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                    <div id="terminal" class="h-80 overflow-y-auto p-4 font-mono text-sm">
+                        <div class="mb-2"><span class="text-green-400">C:\Users\AetherUser&gt;</span> <span class="text-white" id="user-input"></span></div>
+                    </div>
+                    <div class="px-4 py-2 bg-gray-800">
+                        <input type="text" id="command-input" class="w-full bg-transparent text-white outline-none" placeholder="Type your command here...">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Aether Terminal by the Numbers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="1000000">0</span>+</div>
+                        <div class="text-xl">Happy Users</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="5000">0</span>+</div>
+                        <div class="text-xl">Custom Themes</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="99">0</span>%</div>
+                        <div class="text-xl">User Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="customizer" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center  mb-12">Customize Your Terminal</h2>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <div class="theme-option bg-blue-500" data-theme="blue"></div>
+                    <div class="theme-option bg-green-500" data-theme="green"></div>
+                    <div class="theme-option bg-red-500" data-theme="red"></div>
+                    <div class="theme-option bg-purple-500" data-theme="purple"></div>
+                    <div class="theme-option bg-yellow-500" data-theme="yellow"></div>
+                </div>
+                <div id="theme-preview" class="bg-black text-green-400 p-4 rounded-lg max-w-2xl mx-auto font-mono">
+                    <p>> Welcome to Aether Terminal</p>
+                    <p>> Customization is at your fingertips</p>
+                    <p>> Choose a theme to see it in action</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="memes" class="py-20 bg-gray-100 dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meme-tastic Terminal Moments</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://placekitten.com/400/300" alt="Funny Terminal Meme 1" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold mb-2">When the code finally compiles</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">That feeling when your code works on the first try. Must be a glitch in the Matrix!</p>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://placekitten.com/401/300" alt="Funny Terminal Meme 2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold mb-2">Debugging at 3 AM</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Who needs sleep when you have bugs to fix and coffee to drink?</p>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://placekitten.com/402/300" alt="Funny Terminal Meme 3" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold mb-2">Tab Overload</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">When you have so many tabs open, your terminal starts sweating.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="faq-item mb-4">
+                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                            <h3 class="font-semibold">What makes Aether Terminal different?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer bg-gray-100 dark:bg-gray-700 p-4 rounded-b-lg">
+                            <p>Aether Terminal combines advanced features, stunning customization options, and a sprinkle of humor to create the most enjoyable terminal experience you've ever had. It's like a party for your command line!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item mb-4">
+                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                            <h3 class="font-semibold">Is Aether Terminal compatible with my existing scripts?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer bg-gray-100 dark:bg-gray-700 p-4 rounded-b-lg">
+                            <p>Aether Terminal plays nice with all your existing scripts and tools. It's like a chameleon, blending seamlessly into your workflow while adding a touch of magic.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item mb-4">
+                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                            <h3 class="font-semibold">Can I create my own themes for Aether Terminal?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer bg-gray-100 dark:bg-gray-700 p-4 rounded-b-lg">
+                            <p>You bet! Aether Terminal's theme engine is so powerful, you can make your terminal look like anything from a serene beach to a cyberpunk dystopia. Let your imagination run wild!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-primary text-white py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Get in Touch (We don't byte!)</h2>
+                <form class="max-w-lg mx-auto">
+                    <div class="mb-6">
+                        <label for="name" class="block mb-2">Name</label>
+                        <input type="text" id="name" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block mb-2">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-primary font-bold py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">Send</button>
+                </form>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <div class="container">
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
             <p>&copy; 2024 Aetherapp Ventures. All rights reserved.</p>
-            <p>Contact: cayden2138@icloud.com</p>
+            <p>Powered by caffeine, coding, and a sprinkle of magic.</p>
         </div>
     </footer>
 
+    <div id="chat-bot" class="fixed bottom-4 right-4 bg-primary text-white p-4 rounded-full shadow-lg cursor-pointer chat-bot">
+        <i class="fas fa-comment-dots text-2xl"></i>
+    </div>
+
+    <div id="chat-window" class="fixed bottom-20 right-4 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg hidden">
+        <div class="bg-primary text-white p-4 rounded-t-lg">
+            <h3 class="font-bold">Aether Assistant</h3>
+        </div>
+        <div id="chat-messages" class="h-64 overflow-y-auto p-4">
+            <div class="mb-2"><strong>Aether Assistant:</strong> Hello! How can I help you today?</div>
+        </div>
+        <div class="p-4 border-t dark:border-gray-700">
+            <input type="text" id="chat-input" class="w-full px-3 py-2 border rounded-lg focus:outline-none dark:bg-gray-700 dark:text-white" placeholder="Type your message...">
+        </div>
+    </div>
+
+    <div id="easter-egg" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+            <h2 class="text-2xl font-bold mb-4">You found the Easter Egg!</h2>
+            <p class="mb-4">Play the mini-game to win a special prize!</p>
+            <div id="game-container" class="mx-auto mb-4">
+                <div id="player"></div>
+            </div>
+            <p id="game-score" class="mb-4">Score: 0</p>
+            <button id="start-game" class="bg-primary text-white px-4 py-2 rounded-lg">Start Game</button>
+        </div>
+    </div>
+
     <script>
-        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = `${Math.random() * 5 + 1}px`;
+            particle.style.height = particle.style.width;
+            particle.style.background = `hsl(${Math.random() * 360}, 50%, 50%)`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.animation = `particle-animation ${Math.random() * 2 + 1}s linear infinite`;
+            document.getElementById('particles').appendChild(particle);
+            setTimeout(() => particle.remove(), 3000);
+        }
+
+        setInterval(createParticle, 50);
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -311,71 +418,228 @@
             });
         });
 
-        
-        const commands = [
-            'aether --update',
-            'aether --config edit',
-            'aether --plugin install productivity-boost'
-        ];
-        let commandIndex = 0;
-        let charIndex = 0;
+        const terminal = document.getElementById('terminal');
+        const userInput = document.getElementById('user-input');
+        const commandInput = document.getElementById('command-input');
 
-        function typeCommand() {
-            if (commandIndex < commands.length) {
-                const command = commands[commandIndex];
-                const typingCommand = document.getElementById('typing-command');
-                
-                if (charIndex < command.length) {
-                    typingCommand.textContent += command.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeCommand, 100);
-                } else {
-                    setTimeout(() => {
-                        const output = document.createElement('div');
-                        output.className = 'output';
-                        output.textContent = `Command '${command}' executed successfully.`;
-                        typingCommand.parentNode.parentNode.appendChild(output);
+        commandInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const command = this.value;
+                userInput.textContent = command;
+                this.value = '';
 
-                        const newCommandLine = document.createElement('div');
-                        newCommandLine.className = 'command-line';
-                        newCommandLine.innerHTML = '<span class="prompt">C:\\Users\\AetherUser&gt;</span><span class="command" id="typing-command"></span>';
-                        typingCommand.parentNode.parentNode.appendChild(newCommandLine);
+                const output = document.createElement('div');
+                output.classList.add('mb-2', 'text-blue-400');
 
-                        commandIndex++;
-                        charIndex = 0;
-                        typeCommand();
-                    }, 1000);
+                switch(command.toLowerCase()) {
+                    case 'help':
+                        output.textContent = 'Available commands: help, version, joke, clear';
+                        break;
+                    case 'version':
+                        output.textContent = 'Aether Terminal v2.0.0';
+                        break;
+                    case 'joke':
+                        output.textContent = 'Why do programmers prefer dark mode? Because light attracts bugs!';
+                        break;
+                    case 'clear':
+                        terminal.innerHTML = '';
+                        return;
+                    default:
+                        output.textContent = `Command not recognized: ${command}`;
                 }
+
+                terminal.appendChild(output);
+                terminal.appendChild(document.createElement('br'));
+
+                const newPrompt = document.createElement('div');
+                newPrompt.classList.add('mb-2');
+                newPrompt.innerHTML = '<span class="text-green-400">C:\\Users\\AetherUser&gt;</span> <span class="text-white" id="user-input"></span>';
+                terminal.appendChild(newPrompt);
+
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        });
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDark = htmlElement.classList.contains('dark');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        const header = document.getElementById('header');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                header.style.transform = 'translateY(-100%)';
             } else {
-                setTimeout(resetTypingAnimation, 3000);
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        const progressBars = document.querySelectorAll('.progress-bar');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.dataset.width;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => observer.observe(bar));
+
+        const statCounters = document.querySelectorAll('.stat-counter');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    let count = 0;
+                    const updateCount = () => {
+                        const increment = target / 200;
+                        if (count < target) {
+                            count += increment;
+                            entry.target.innerText = Math.ceil(count);
+                            setTimeout(updateCount, 1);
+                        } else {
+                            entry.target.innerText = target;
+                        }
+                    };
+                    updateCount();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statCounters.forEach(counter => statObserver.observe(counter));
+
+        // Theme customizer
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const themePreview = document.getElementById('theme-preview');
+
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.dataset.theme;
+                themePreview.style.color = `var(--color-${theme}-400)`;
+            });
+        });
+
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Chat bot
+        const chatBot = document.getElementById('chat-bot');
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+
+        chatBot.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+        });
+
+        chatInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const message = chatInput.value;
+                chatInput.value = '';
+
+                const userMessage = document.createElement('div');
+                userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                chatMessages.appendChild(userMessage);
+
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.innerHTML = `<strong>Aether Assistant:</strong> I'm sorry, I'm just a demo. But the real Aether Assistant would be happy to help!`;
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        let gameInterval;
+        let gameScore = 0;
+        const player = document.getElementById('player');
+        const gameContainer = document.getElementById('game-container');
+        const gameScoreElement = document.getElementById('game-score');
+        const startGameButton = document.getElementById('start-game');
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            obstacle.style.left = `${Math.random() * (gameContainer.offsetWidth - 20)}px`;
+            gameContainer.appendChild(obstacle);
+
+            const fallInterval = setInterval(() => {
+                const top = parseInt(window.getComputedStyle(obstacle).getPropertyValue('top'));
+                if (top >= gameContainer.offsetHeight) {
+                    clearInterval(fallInterval);
+                    obstacle.remove();
+                    gameScore++;
+                    gameScoreElement.textContent = `Score: ${gameScore}`;
+                } else {
+                    obstacle.style.top = `${top + 2}px`;
+                    checkCollision(obstacle);
+                }
+            }, 20);
+        }
+
+        function checkCollision(obstacle) {
+            const playerRect = player.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+
+            if (
+                playerRect.left < obstacleRect.right &&
+                playerRect.right > obstacleRect.left &&
+                playerRect.top < obstacleRect.bottom &&
+                playerRect.bottom > obstacleRect.top
+            ) {
+                endGame();
             }
         }
 
-        function resetTypingAnimation() {
-            const terminalContent = document.querySelector('.terminal-content');
-            terminalContent.innerHTML = `
-                <div class="command-line">
-                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
-                    <span class="command">aether --version</span>
-                </div>
-                <div class="output">Aether Terminal v1.5.2</div>
-                <div class="command-line">
-                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
-                    <span class="command">aether --theme cosmic</span>
-                </div>
-                <div class="output">Theme 'Cosmic' applied successfully.</div>
-                <div class="command-line">
-                    <span class="prompt">C:\\Users\\AetherUser&gt;</span>
-                    <span class="command" id="typing-command"></span>
-                </div>
-            `;
-            commandIndex = 0;
-            charIndex = 0;
-            typeCommand();
+        function endGame() {
+            clearInterval(gameInterval);
+            alert(`Game Over! Your score: ${gameScore}`);
+            gameScore = 0;
+            gameScoreElement.textContent = 'Score: 0';
+            document.getElementById('easter-egg').classList.add('hidden');
         }
 
-        
-        window.addEventListener('load', typeCommand);
+        startGameButton.addEventListener('click', () => {
+            gameScore = 0;
+            gameScoreElement.textContent = 'Score: 0';
+            gameInterval = setInterval(createObstacle, 2000);
+            startGameButton.disabled = true;
+        });
+
+        gameContainer.addEventListener('mousemove', (e) => {
+            const containerRect = gameContainer.getBoundingClientRect();
+            const x = e.clientX - containerRect.left - player.offsetWidth / 2;
+            player.style.left = `${Math.max(0, Math.min(x, gameContainer.offsetWidth - player.offsetWidth))}px`;
+        });
+
+        let konami = '';
+        const konamiCode = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba';
+
+        document.addEventListener('keydown', (e) => {
+            konami += e.key;
+            if (konamiCode.indexOf(konami) !== 0) {
+                konami = '';
+            } else if (konami === konamiCode) {
+                document.getElementById('easter-egg').classList.remove('hidden');
+                konami = '';
+            }
+        });
     </script>
 </body>
 </html>
