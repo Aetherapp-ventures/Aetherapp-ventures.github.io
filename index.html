@@ -123,6 +123,70 @@
             position: absolute;
             top: -20px;
         }
+
+        .download-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: all 0.5s;
+        }
+
+        .download-button:hover::before {
+            left: 100%;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .testimonial-slider {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .testimonial-slide {
+            display: inline-block;
+            width: 100%;
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        #cookie-banner {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
@@ -149,7 +213,10 @@
             <div class="container mx-auto px-6 text-center relative z-10">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 glitch">Aether Terminal</h1>
                 <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Experience the next generation Windows 11 Terminal with enhanced productivity, customization, and a dash of humor!</p>
-                <a href="#" class="bg-white text-primary px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-block transform hover:scale-105 transition-transform duration-300">Download Now</a>
+                <a href="/downloads/aether_terminal.exe" download class="bg-white text-primary px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-200 transition-colors inline-block transform hover:scale-105 transition-transform duration-300 download-button">
+                    Download Now
+                    <i class="fas fa-download ml-2"></i>
+                </a>
             </div>
             <div class="terminal-3d mt-12 max-w-4xl mx-auto">
                 <div class="terminal-3d-inner bg-black rounded-lg shadow-2xl overflow-hidden">
@@ -174,7 +241,7 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Key Features (Now with Extra Pizzazz!)</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform feature-card">
                         <i class="fas fa-paint-brush text-4xl text-primary mb-4"></i>
                         <h3 class="text-xl font-semibold mb-2">Advanced Customization</h3>
                         <p class="mb-4">Tailor your terminal like a bespoke suit. Impress your cat with your color schemes!</p>
@@ -182,7 +249,7 @@
                             <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="95%"></div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform feature-card">
                         <i class="fas fa-clone text-4xl text-primary mb-4"></i>
                         <h3 class="text-xl font-semibold mb-2">Multi-Tab Support</h3>
                         <p class="mb-4">Juggle tasks like a pro circus performer. Warning: May cause tab addiction!</p>
@@ -190,7 +257,7 @@
                             <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="90%"></div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform feature-card">
                         <i class="fas fa-brain text-4xl text-primary mb-4"></i>
                         <h3 class="text-xl font-semibold mb-2">Integration with Windows</h3>
                         <p class="mb-4">Our Terminal is, if executed, integrated into the Default Windows CMD Application.</p>
@@ -198,7 +265,7 @@
                             <div class="bg-primary h-2.5 rounded-full progress-bar" style="width: 0%" data-width="85%"></div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105 transition-transform feature-card">
                         <i class="fas fa-puzzle-piece text-4xl text-primary mb-4"></i>
                         <h3 class="text-xl font-semibold mb-2">Seamless Integration</h3>
                         <p class="mb-4">Fits into Windows 11 like peanut butter in a jelly sandwich. Yum!</p>
@@ -236,13 +303,14 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Aether Terminal by the Numbers</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    
                     <div>
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="117">0</span>+</div>
                         <div class="text-xl">Happy Users</div>
                     </div>
                     <div>
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="20">0</span>+</div>
-                        <div class="text-xl">Custom Themes</div>
+                        <div  class="text-xl">Custom Themes</div>
                     </div>
                     <div>
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="99">0</span>%</div>
@@ -293,6 +361,32 @@
                         <div class="p-4">
                             <h3 class="font-bold mb-2">Tab Overload</h3>
                             <p class="text-sm text-gray-600 dark:text-gray-400">When you have so many tabs open, your terminal starts sweating.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-20 bg-gray-100 dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">What Our Users Say</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg mx-4">
+                            <p class="mb-4">"Aether Terminal has revolutionized my workflow. It's like having a superpower at my fingertips!"</p>
+                            <p class="font-bold">- Jane Doe, Software Engineer</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg mx-4">
+                            <p class="mb-4">"I never thought a terminal could be this fun to use. The memes alone are worth the download!"</p>
+                            <p class="font-bold">- John Smith, DevOps Specialist</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg mx-4">
+                            <p class="mb-4">"Aether Terminal's customization options are out of this world. It's like having a personal assistant for my coding needs."</p>
+                            <p class="font-bold">- Emily Johnson, Full Stack Developer</p>
                         </div>
                     </div>
                 </div>
@@ -360,7 +454,7 @@
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2024 Aetherapp Ventures. All rights reserved.</p>
             <p>Powered by caffeine, coding, and a sprinkle of magic.</p>
-            <p><li><a href="editor.html" class="hover:text-secondary transition-colors">Web Editor</a></li></p>
+            <p><a href="editor.html" class="hover:text-secondary transition-colors">Web Editor</a></p>
         </div>
     </footer>
 
@@ -390,6 +484,13 @@
             <p id="game-score" class="mb-4">Score: 0</p>
             <button id="start-game" class="bg-primary text-white px-4 py-2 rounded-lg">Start Game</button>
         </div>
+    </div>
+
+    <div id="cookie-banner">
+        <p>This website uses cookies to ensure you get the best experience on our website. 
+           <a href="#" id="accept-cookies" class="text-primary hover:text-secondary">Accept</a> 
+           <a href="#" id="reject-cookies" class="text-primary hover:text-secondary">Reject</a>
+        </p>
     </div>
 
     <script>
@@ -467,7 +568,7 @@
         themeToggle.addEventListener('click', () => {
             htmlElement.classList.toggle('dark');
             const isDark = htmlElement.classList.contains('dark');
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            themeToggle.innerHTML = isDark ?  '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
         const header = document.getElementById('header');
@@ -638,6 +739,56 @@
                 document.getElementById('easter-egg').classList.remove('hidden');
                 konami = '';
             }
+        });
+
+        function trackDownload() {
+            console.log('Download initiated');
+        }
+
+        document.querySelector('.download-button').addEventListener('click', trackDownload);
+
+        function setupTestimonialSlider() {
+            const slider = document.querySelector('.testimonial-slider');
+            const slides = document.querySelectorAll('.testimonial-slide');
+            
+            slides.forEach(slide => {
+                const clone = slide.cloneNode(true);
+                slider.appendChild(clone);
+            });
+        }
+
+        window.addEventListener('load', setupTestimonialSlider);
+
+        function setCookie(name, value, days) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').reduce((r, v) => {
+                const parts = v.split('=');
+                return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+            }, '');
+        }
+
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const rejectCookies = document.getElementById('reject-cookies');
+
+        if (!getCookie('cookieConsent')) {
+            cookieBanner.style.display = 'block';
+        }
+
+        acceptCookies.addEventListener('click', (e) => {
+            e.preventDefault();
+            setCookie('cookieConsent', 'accepted', 365);
+            cookieBanner.style.display = 'none';
+        });
+
+        rejectCookies.addEventListener('click', (e) => {
+            e.preventDefault();
+            setCookie('cookieConsent', 'rejected', 365);
+            cookieBanner.style.display = 'none';
         });
     </script>
 </body>
