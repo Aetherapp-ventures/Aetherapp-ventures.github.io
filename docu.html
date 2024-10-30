@@ -146,7 +146,6 @@
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-    <!-- Header -->
     <header class="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-50">
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
             <a href="index.html" class="flex items-center space-x-2">
@@ -162,10 +161,10 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    
     <div class="pt-16 container mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Navigation Sidebar -->
+            
             <aside class="lg:w-64 flex-shrink-0">
                 <nav class="doc-nav pr-4">
                     <div class="space-y-4">
@@ -173,13 +172,13 @@
                             <h5 class="font-semibold text-gray-900 dark:text-white mb-2">Getting Started</h5>
                             <ul class="space-y-2 text-sm">
                                 <li>
-                                    <a href="#introduction" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Introduction</a>
+                                    <a href="#" data-file="README.md" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Overview</a>
                                 </li>
                                 <li>
-                                    <a href="#installation" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Installation</a>
+                                    <a href="#" data-file="getting-started.md" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Getting Started</a>
                                 </li>
                                 <li>
-                                    <a href="#quick-start" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Quick Start</a>
+                                    <a href="#" data-file="installation.md" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Installation</a>
                                 </li>
                             </ul>
                         </div>
@@ -187,10 +186,10 @@
                             <h5 class="font-semibold text-gray-900 dark:text-white mb-2">Features</h5>
                             <ul class="space-y-2 text-sm">
                                 <li>
-                                    <a href="#ai-assistant" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">AI Assistant</a>
+                                    <a href="#" data-file="ai-assistant.md" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">AI Assistant</a>
                                 </li>
                                 <li>
-                                    <a href="#customization" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Customization</a>
+                                    <a href="#" data-file="customization.md" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Customization</a>
                                 </li>
                             </ul>
                         </div>
@@ -238,15 +237,36 @@
         });
 
         
-        async function loadMarkdown() {
+        async function loadMarkdown(path = 'documentation/README.md') {
             try {
-                const response = await fetch('documentation/README.md');
+                const response = await fetch(path);
                 const text = await response.text();
-                document.getElementById('markdown-content').innerHTML = marked(text);
+                const content = marked(text);
+                document.getElementById('markdown-content').innerHTML = content;
+                
+                
+                document.querySelectorAll('#markdown-content a').forEach(link => {
+                    if (link.href.endsWith('.md')) {
+                        link.addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            const newPath = 'documentation/' + link.href.split('/').pop();
+                            await loadMarkdown(newPath);
+                            history.pushState(null, '', `?doc=${newPath}`);
+                        });
+                    }
+                });
+
                 Prism.highlightAll();
                 generateTOC();
+                updateNavigation(path);
             } catch (error) {
                 console.error('Error loading markdown:', error);
+                document.getElementById('markdown-content').innerHTML = `
+                    <div class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-lg">
+                        <h2 class="text-lg font-semibold mb-2">Error Loading Documentation</h2>
+                        <p>${error.message}</p>
+                    </div>
+                `;
             }
         }
 
@@ -277,7 +297,31 @@
         }
 
         
-        loadMarkdown();
+        function updateNavigation(currentPath) {
+            const fileName = currentPath.split('/').pop();
+            document.querySelectorAll('.doc-nav a').forEach(link => {
+                link.classList.remove('text-indigo-600', 'dark:text-indigo-400');
+                if (link.getAttribute('data-file') === fileName) {
+                    link.classList.add('text-indigo-600', 'dark:text-indigo-400');
+                }
+            });
+        }
+
+        
+        
+        window.addEventListener('popstate', () => {
+            const params = new URLSearchParams(window.location.search);
+            const doc = params.get('doc') || 'documentation/README.md';
+            loadMarkdown(doc);
+        });
+
+        
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const doc = params.get('doc') || 'documentation/README.md';
+            loadMarkdown(doc);
+        });
 
         
         document.addEventListener('click', e => {
@@ -288,6 +332,15 @@
                     element.scrollIntoView({ behavior: 'smooth' });
                 }
             }
+        });
+
+        document.querySelectorAll('.doc-nav a[data-file]').forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const path = 'documentation/' + link.getAttribute('data-file');
+                await loadMarkdown(path);
+                history.pushState(null, '', `?doc=${path}`);
+            });
         });
     </script>
 </body>
