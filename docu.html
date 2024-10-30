@@ -201,6 +201,15 @@
             <main class="flex-1 min-w-0">
                 <div class="markdown-body pb-16" id="markdown-content">
                 </div>
+                <div id="loading-indicator" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 flex items-center space-x-3">
+                        <svg class="animate-spin h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Loading documentation...</span>
+                    </div>
+                </div>
             </main>
 
             
@@ -236,20 +245,43 @@
             updateTheme();
         });
 
-        
+        function debug(message) {
+            console.log(`[Debug] ${message}`);
+        }
+
+        function showLoading() {
+            document.getElementById('loading-indicator').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-indicator').classList.add('hidden');
+        }
+
         async function loadMarkdown(path = 'documentation/README.md') {
+            showLoading();
+            debug(`Loading markdown from: ${path}`);
             try {
                 const response = await fetch(path);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const text = await response.text();
-                const content = marked(text);
-                document.getElementById('markdown-content').innerHTML = content;
+                debug(`Markdown content loaded: ${text.slice(0, 50)}...`);
                 
+                const contentDiv = document.getElementById('markdown-content');
+                const tocDiv = document.getElementById('toc');
+                contentDiv.innerHTML = '';
+                tocDiv.innerHTML = '';
+                
+                const content = marked.parse(text);
+                contentDiv.innerHTML = content;
                 
                 document.querySelectorAll('#markdown-content a').forEach(link => {
                     if (link.href.endsWith('.md')) {
                         link.addEventListener('click', async (e) => {
                             e.preventDefault();
                             const newPath = 'documentation/' + link.href.split('/').pop();
+                            debug(`Navigating to: ${newPath}`);
                             await loadMarkdown(newPath);
                             history.pushState(null, '', `?doc=${newPath}`);
                         });
@@ -259,18 +291,21 @@
                 Prism.highlightAll();
                 generateTOC();
                 updateNavigation(path);
+                debug('Markdown loaded and processed successfully');
             } catch (error) {
                 console.error('Error loading markdown:', error);
                 document.getElementById('markdown-content').innerHTML = `
                     <div class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-lg">
                         <h2 class="text-lg font-semibold mb-2">Error Loading Documentation</h2>
                         <p>${error.message}</p>
+                        <p class="mt-2 text-sm">Path: ${path}</p>
                     </div>
                 `;
+            } finally {
+                hideLoading();
             }
         }
 
-        
         function generateTOC() {
             const headings = document.querySelectorAll('.markdown-body h2, .markdown-body h3');
             const toc = document.getElementById('toc');
@@ -296,7 +331,6 @@
             toc.appendChild(ul);
         }
 
-        
         function updateNavigation(currentPath) {
             const fileName = currentPath.split('/').pop();
             document.querySelectorAll('.doc-nav a').forEach(link => {
@@ -307,23 +341,19 @@
             });
         }
 
-        
-        
         window.addEventListener('popstate', () => {
             const params = new URLSearchParams(window.location.search);
             const doc = params.get('doc') || 'documentation/README.md';
             loadMarkdown(doc);
         });
 
-        
-        
         document.addEventListener('DOMContentLoaded', () => {
+            debug('Document loaded, initializing documentation');
             const params = new URLSearchParams(window.location.search);
             const doc = params.get('doc') || 'documentation/README.md';
             loadMarkdown(doc);
         });
 
-        
         document.addEventListener('click', e => {
             if (e.target.tagName === 'A' && e.target.hash) {
                 e.preventDefault();
@@ -338,9 +368,22 @@
             link.addEventListener('click', async (e) => {
                 e.preventDefault();
                 const path = 'documentation/' + link.getAttribute('data-file');
+                debug(`Navigation clicked: ${path}`);
                 await loadMarkdown(path);
                 history.pushState(null, '', `?doc=${path}`);
             });
+        });
+
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            highlight: function(code, lang) {
+                if (Prism.languages[lang]) {
+                    return Prism.highlight(code, Prism.languages[lang], lang);
+                }
+                return code;
+            }
         });
     </script>
 </body>
