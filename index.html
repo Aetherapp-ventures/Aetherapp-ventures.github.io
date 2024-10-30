@@ -188,7 +188,6 @@
             z-index: 1000;
         }
 
-        
         .bg-pattern {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
@@ -246,7 +245,6 @@
             transform: rotateX(0deg) rotateY(0deg);
         }
 
-        
         .download-button {
             position: relative;
             overflow: hidden;
@@ -272,154 +270,42 @@
             left: 100%;
         }
 
-        #chat-window.active {
-            transform: scale(1);
-            opacity: 1;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .message-in {
-            animation: messageSlideIn 0.3s ease-out;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes messageSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .terminal-3d-inner {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(98, 0, 234, 0.2);
         }
 
-        .typing-indicator {
-            display: flex;
-            align-items: center;
-            gap: 2px;
+        .download-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(98, 0, 234, 0.2);
         }
 
-        .typing-indicator span {
-            width: 4px;
-            height: 4px;
-            background-color: currentColor;
-            border-radius: 50%;
-            animation: typing 1s infinite;
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(98, 0, 234, 0.4);
         }
 
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        /* Add this new section after the AI Assistant section and before the Try It section */
-        #documentation {
-            background-color: white;
-            color: black;
-            padding: 2rem;
-        }
-
-        #documentation h2 {
-            color: black;
-            margin-bottom: 1rem;
-        }
-
-        #documentation .doc-nav-item {
-            color: black;
+        .float-on-hover {
             transition: all 0.3s ease;
         }
 
-        #documentation .doc-nav-item:hover {
-            transform: translateX(10px);
-        }
-
-        #documentation .doc-section {
-            margin-bottom: 2rem;
-        }
-
-        #documentation .prose {
-            max-width: none;
-        }
-
-        #documentation .prose h4 {
-            color: black;
-            margin-bottom: 0.5rem;
-        }
-
-        #documentation .prose ul {
-            list-style-type: disc;
-            padding-left: 1rem;
-        }
-
-        #documentation .prose code {
-            background-color: #f8f9fa;
-            padding: 0.2rem 0.4rem;
-            border-radius: 0.25rem;
-        }
-
-        #documentation .prose table {
-            width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        #documentation .prose th,
-        #documentation .prose td {
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        #documentation .prose th {
-            background-color: #f8f9fa;
-        }
-
-        #documentation .prose tbody tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .doc-nav-item.active {
-            background-color: var(--color-primary);
-            color: white;
-        }
-
-        .doc-section {
-            scroll-margin-top: 100px;
-        }
-
-        /* Documentation specific styles */
-        .prose {
-            max-width: 65ch;
-            color: inherit;
-        }
-
-        .prose code {
-            color: #10B981;
-            background-color: rgba(0, 0, 0, 0.1);
-            padding: 0.2em 0.4em;
-            border-radius: 0.25em;
-        }
-
-        .prose pre {
-            background-color: #1E1E1E;
-            padding: 1em;
-            border-radius: 0.5em;
-            overflow-x: auto;
-        }
-
-        .prose table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .prose th,
-        .prose td {
-            padding: 0.75em;
-            border: 1px solid rgba(156, 163, 175, 0.2);
-        }
-
-        .prose th {
-            background-color: rgba(0, 0, 0, 0.05);
+        .float-on-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -461,8 +347,8 @@
     </header>
 
     <main class="pt-16">
-        <section id="hero" class="min-h-screen bg-gradient-to-br from-primary via-secondary to-purple-800 text-white py-32 relative overflow-hidden">
-            <div class="absolute inset-0 bg-pattern opacity-10"></div>
+        <section id="hero" class="min-h-screen relative overflow-hidden" style="background: linear-gradient(-45deg, #6200ea, #3700b3, #23a6d5, #23d5ab); background-size: 400% 400%; animation: gradientBG 15s ease infinite;">
+            <div class="absolute inset-0 bg-black/20"></div>
             <div id="particles" class="absolute inset-0"></div>
             <div class="container mx-auto px-6 text-center relative z-10">
                 <div class="max-w-4xl mx-auto">
@@ -493,7 +379,7 @@
             <!-- Neue Feature: Live Preview -->
             <div class="terminal-preview mt-12 max-w-4xl mx-auto px-6">
                 <div class="terminal-3d">
-                    <div class="terminal-3d-inner bg-black/90 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden border border-white/10">
+                    <div class="terminal-3d-inner rounded-xl overflow-hidden">
                         <div class="flex justify-between items-center px-4 py-3 bg-gray-800/50 backdrop-blur-sm border-b border-white/10">
                             <div class="flex items-center space-x-2">
                                 <div class="flex space-x-2">
@@ -503,7 +389,7 @@
                                 </div>
                                 <div class="text-sm text-white/70 ml-3">Aether Terminal</div>
                             </div>
-                            <div class="flex items-center space-x-4">
+                            <div  class="flex items-center space-x-4">
                                 <button class="text-white/50 hover:text-white/80">
                                     <i class="fas fa-minus"></i>
                                 </button>
@@ -524,67 +410,6 @@
                             <div class="typing-effect-delay-2">
                                 <span class="text-green-400">λ</span>
                                 <span class="text-blue-400">How can I help you today?</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="ai-assistant" class="py-20 bg-gray-50 dark:bg-gray-900">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">AI-Powered Assistant</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-primary/10 p-3 rounded-lg">
-                                <i class="fas fa-robot text-primary text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">Natural Language Commands</h3>
-                                <p class="text-gray-600 dark:text-gray-400">
-                                    Just tell the assistant what you want to do in plain English, and it'll handle the complex commands for you.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-primary/10 p-3 rounded-lg">
-                                <i class="fas fa-magic text-primary text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">Smart Suggestions</h3>
-                                <p class="text-gray-600 dark:text-gray-400">
-                                    Get intelligent command suggestions based on your usage patterns and current context.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="bg-primary/10 p-3 rounded-lg">
-                                <i class="fas fa-code text-primary text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">Code Explanation</h3>
-                                <p class="text-gray-600 dark:text-gray-400">
-                                    Get instant explanations for complex commands and scripts with examples.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl">
-                        <div class="terminal-chat space-y-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 max-w-[80%]">
-                                    <p class="text-sm">How do I find all PDF files modified in the last 24 hours?</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-3 justify-end">
-                                <div class="bg-primary text-white rounded-lg p-3 max-w-[80%]">
-                                    <p class="text-sm">I can help you with that! Here's the command:</p>
-                                    <code class="block mt-2 text-xs bg-black/20 p-2 rounded">
-                                        find . -name "*.pdf" -mtime -1
-                                    </code>
-                                    <p class="text-sm mt-2">This will find all PDF files modified in the last 24 hours in the current directory and its subdirectories.</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -618,16 +443,15 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Aether Terminal by the Numbers</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    
-                    <div>
+                    <div class="glass-effect rounded-xl p-8 float-on-hover">
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="117">0</span>+</div>
                         <div class="text-xl">Happy Users</div>
                     </div>
-                    <div>
+                    <div class="glass-effect rounded-xl p-8 float-on-hover">
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="20">0</span>+</div>
                         <div  class="text-xl">Custom Themes</div>
                     </div>
-                    <div>
+                    <div class="glass-effect rounded-xl p-8 float-on-hover">
                         <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="99">0</span>%</div>
                         <div class="text-xl">User Satisfaction</div>
                     </div>
@@ -687,7 +511,7 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
                 <div class="max-w-3xl mx-auto">
                     <div class="faq-item mb-4">
-                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                        <div class="faq-question glass-effect p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
                             <h3 class="font-semibold">What makes Aether Terminal different?</h3>
                             <i class="fas fa-chevron-down"></i>
                         </div>
@@ -696,7 +520,7 @@
                         </div>
                     </div>
                     <div class="faq-item mb-4">
-                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                        <div class="faq-question glass-effect p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
                             <h3 class="font-semibold">Is Aether Terminal compatible with my existing scripts?</h3>
                             <i class="fas fa-chevron-down"></i>
                         </div>
@@ -705,7 +529,7 @@
                         </div>
                     </div>
                     <div class="faq-item mb-4">
-                        <div class="faq-question bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
+                        <div class="faq-question glass-effect p-4 rounded-lg shadow cursor-pointer flex justify-between items-center">
                             <h3 class="font-semibold">Can I create my own themes for Aether Terminal?</h3>
                             <i class="fas fa-chevron-down"></i>
                         </div>
@@ -717,8 +541,9 @@
             </div>
         </section>
 
-        <section id="contact" class="bg-primary text-white py-20">
-            <div class="container mx-auto px-6">
+        <section id="contact" class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #6200ea, #3700b3);">
+            <div class="absolute inset-0 bg-pattern opacity-10"></div>
+            <div class="container mx-auto px-6 relative">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Get in Touch (We don't byte!)</h2>
                 <form class="max-w-lg mx-auto">
                     <div class="mb-6">
@@ -745,36 +570,6 @@
             <p>Powered by caffeine, coding, and a sprinkle of magic.</p>
         </div>
     </footer>
-
-    <div id="chat-bot" class="fixed bottom-4 right-4 bg-primary text-white p-4 rounded-full shadow-lg cursor-pointer chat-bot hover:scale-110 transition-transform">
-        <i class="fas fa-robot text-2xl"></i>
-    </div>
-
-    <div id="chat-window" class="fixed bottom-20 right-4 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl hidden transform transition-all duration-300 scale-95 opacity-0">
-        <div class="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-xl flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <i class="fas fa-robot text-xl"></i>
-                <h3 class="font-bold">AI Terminal Assistant</h3>
-            </div>
-            <button id="close-chat" class="text-white/80 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div id="chat-messages" class="h-96 overflow-y-auto p-4 space-y-4">
-            <!-- Messages will be added here dynamically -->
-        </div>
-        <div class="p-4 border-t dark:border-gray-700">
-            <div class="relative">
-                <input type="text" 
-                       id="chat-input" 
-                       class="w-full px-4 py-2 pr-10 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white dark:border-gray-600" 
-                       placeholder="Ask about terminal commands...">
-                <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-primary dark:text-white/70">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <div id="easter-egg" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
@@ -842,7 +637,7 @@
 
         const terminal = document.getElementById('terminal');
         const userInput = document.getElementById('user-input');
-        const commandInput = document.getElementById('command-input');
+        const commandInput = document.getElementById('comman d-input');
 
         commandInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -955,25 +750,6 @@
             question.addEventListener('click', () => {
                 item.classList.toggle('active');
             });
-        });
-
-        const chatBot = document.getElementById('chat-bot');
-        const chatWindow = document.getElementById('chat-window');
-        const closeChat = document.getElementById('close-chat');
-
-        chatBot.addEventListener('click', () => {
-            chatWindow.classList.remove('hidden');
-            
-            setTimeout(() => {
-                chatWindow.classList.add('active');
-            }, 10);
-        });
-
-        closeChat.addEventListener('click', () => {
-            chatWindow.classList.remove('active');
-            setTimeout(() => {
-                chatWindow.classList.add('hidden');
-            }, 300);
         });
 
         let gameInterval;
@@ -1101,13 +877,11 @@
             cookieBanner.style.display = 'none';
         });
 
-        
         document.getElementById('mobile-menu').addEventListener('click', () => {
             const mobileNav = document.getElementById('mobile-nav');
             mobileNav.classList.toggle('hidden');
         });
 
-        
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1121,147 +895,9 @@
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.feature-card, .faq-item, .testimonial-slide').forEach(
             el => observer.observe(el)
         );
-
-        
-        const aiAssistant = {
-            context: [],
-            
-            
-            responses: {
-                'find': {
-                    files: 'Use the find command: find . -name "pattern" -type f',
-                    directories: 'Use the find command: find . -type d -name "pattern"',
-                    recent: 'To find recent files: find . -type f -mtime -1',
-                    large: 'To find large files: find . -type f -size +100M'
-                },
-                'git': {
-                    status: 'Check status with: git status',
-                    commit: 'Commit changes: git commit -m "your message"',
-                    push: 'Push to remote: git push origin branch-name',
-                    branch: 'Create new branch: git checkout -b branch-name'
-                },
-                'docker': {
-                    list: 'List containers: docker ps',
-                    images: 'List images: docker images',
-                    run: 'Run container: docker run image-name',
-                    build: 'Build image: docker build -t name .'
-                }
-            },
-
-            
-            processInput(input) {
-                input = input.toLowerCase();
-                
-                
-                this.context.push(input);
-                if (this.context.length > 5) this.context.shift();
-
-                
-                if (input.includes('find') || input.includes('search')) {
-                    if (input.includes('file')) return this.responses.find.files;
-                    if (input.includes('folder') || input.includes('directory')) return this.responses.find.directories;
-                    if (input.includes('recent')) return this.responses.find.recent;
-                    if (input.includes('large')) return this.responses.find.large;
-                }
-
-                if (input.includes('git')) {
-                    if (input.includes('status')) return this.responses.git.status;
-                    if (input.includes('commit')) return this.responses.git.commit;
-                    if (input.includes('push')) return this.responses.git.push;
-                    if (input.includes('branch')) return this.responses.git.branch;
-                }
-
-                if (input.includes('docker')) {
-                    if (input.includes('list')) return this.responses.docker.list;
-                    if (input.includes('image')) return this.responses.docker.images;
-                    if (input.includes('run')) return this.responses.docker.run;
-                    if (input.includes('build')) return this.responses.docker.build;
-                }
-
-                
-                if (input.includes('hello') || input.includes('hi')) {
-                    return "Hello! How can I assist you with terminal commands today?";
-                }
-
-                if (input.includes('help')) {
-                    return "I can help you with: find commands, git operations, docker commands, and general terminal usage. Just ask in natural language!";
-                }
-
-                
-                return "I understand you're asking about '" + input + "'. Could you please be more specific about what you'd like to do?";
-            }
-        };
-
-        
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-
-        function addMessage(message, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('mb-4', 'flex', isUser ? 'justify-end' : 'justify-start');
-
-            const messageContent = document.createElement('div');
-            messageContent.classList.add(
-                'max-w-[80%]',
-                'rounded-lg',
-                'p-3',
-                isUser ? 'bg-primary' : 'bg-gray-100',
-                isUser ? 'text-white' : 'text-gray-800',
-                'dark:bg-gray-700'
-            );
-
-            messageContent.innerHTML = `<p class="text-sm">${message}</p>`;
-            messageDiv.appendChild(messageContent);
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        chatInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' && this.value.trim()) {
-                const userMessage = this.value.trim();
-                addMessage(userMessage, true);
-                
-                
-                setTimeout(() => {
-                    const response = aiAssistant.processInput(userMessage);
-                    addMessage(response);
-                }, 500);
-
-                this.value = '';
-            }
-        });
-
-        
-        setTimeout(() => {
-            addMessage("Hello! I'm your AI terminal assistant. How can I help you today?");
-        }, 1000);
-
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const docNavItems = document.querySelectorAll('.doc-nav-item');
-            const docSections = document.querySelectorAll('.doc-section');
-
-            function highlightNavItem() {
-                const scrollPosition = window.scrollY;
-
-                docSections.forEach((section, index) => {
-                    const sectionTop = section.offsetTop - 120;
-                    const sectionBottom = sectionTop + section.offsetHeight;
-
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        docNavItems.forEach(item => item.classList.remove('active'));
-                        docNavItems[index].classList.add('active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', highlightNavItem);
-            highlightNavItem();
-        });
     </script>
 </body>
 </html>
