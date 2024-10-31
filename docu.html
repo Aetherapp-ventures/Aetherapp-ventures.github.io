@@ -5,6 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aether Terminal - Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                color: 'inherit',
+                                a: {
+                                    color: '#4f46e5',
+                                    '&:hover': {
+                                        color: '#4338ca',
+                                    },
+                                },
+                                h1: {
+                                    color: 'inherit',
+                                },
+                                h2: {
+                                    color: 'inherit',
+                                },
+                                h3: {
+                                    color: 'inherit',
+                                },
+                                strong: {
+                                    color: 'inherit',
+                                },
+                                code: {
+                                    color: 'inherit',
+                                },
+                                blockquote: {
+                                    color: 'inherit',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+            plugins: [
+                function({ addBase, theme }) {
+                    addBase({
+                        '.prose': {
+                            maxWidth: 'none',
+                        },
+                    });
+                },
+            ],
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
@@ -13,9 +62,7 @@
     <style>
         
         .markdown-body {
-            @apply max-w-4xl mx-auto px-6 py-8 prose prose-indigo dark:prose-invert;
-            color: inherit;
-            line-height: 1.6;
+            @apply prose prose-lg dark:prose-invert prose-headings:scroll-mt-20 max-w-none;
         }
 
         .markdown-body h1 {
@@ -23,31 +70,23 @@
         }
 
         .markdown-body h2 {
-            @apply text-2xl font-bold mt-12 mb-6 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200;
+            @apply text-2xl font-bold mt-12 mb-6 pb-2 border-b border-gray-200 dark:border-gray-700;
         }
 
         .markdown-body h3 {
-            @apply text-xl font-semibold mt-8 mb-4 text-gray-700 dark:text-gray-300;
+            @apply text-xl font-semibold mt-8 mb-4;
         }
 
-        .markdown-body p {
-            @apply my-4 text-gray-600 dark:text-gray-400 leading-relaxed;
-        }
-
-        .markdown-body ul, .markdown-body ol {
-            @apply my-6 pl-6 space-y-2;
-        }
-
-        .markdown-body li {
-            @apply text-gray-600 dark:text-gray-400;
+        .markdown-body a {
+            @apply text-indigo-600 dark:text-indigo-400 no-underline hover:underline;
         }
 
         .markdown-body ul {
-            @apply list-disc;
+            @apply list-disc list-inside;
         }
 
         .markdown-body ol {
-            @apply list-decimal;
+            @apply list-decimal list-inside;
         }
 
         .markdown-body code:not([class*="language-"]) {
@@ -58,16 +97,8 @@
             @apply my-6 p-4 rounded-lg bg-gray-900 dark:bg-gray-800 overflow-x-auto shadow-lg;
         }
 
-        .markdown-body pre code {
-            @apply text-sm font-mono text-gray-200;
-        }
-
         .markdown-body blockquote {
-            @apply my-6 pl-4 border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 py-2 px-4 rounded-r-lg italic text-gray-700 dark:text-gray-300;
-        }
-
-        .markdown-body a {
-            @apply text-indigo-600 dark:text-indigo-400 hover:underline;
+            @apply border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 py-2 px-4 rounded-r-lg italic;
         }
 
         
@@ -392,11 +423,11 @@
             gfm: true,
             breaks: true,
             sanitize: false,
+            smartLists: true,
             smartypants: true,
             xhtml: false
         });
 
-        
         const renderer = new marked.Renderer();
 
         renderer.heading = function(text, level) {
@@ -419,9 +450,15 @@
             if (title) {
                 out += ' title="' + title + '"';
             }
-            out += ' class="transition-colors duration-200"';
+            out += ' class="text-indigo-600 dark:text-indigo-400 hover:underline"';
             out += '>' + text + '</a>';
             return out;
+        };
+
+        renderer.list = function(body, ordered) {
+            const type = ordered ? 'ol' : 'ul';
+            const className = ordered ? 'list-decimal' : 'list-disc';
+            return `<${type} class="list-inside ${className} my-6 space-y-2">${body}</${type}>`;
         };
 
         marked.use({ renderer });
