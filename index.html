@@ -24,8 +24,7 @@
             50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
         }
-        .float { animation: float 3s ease-in-out infinite; }
-        
+
         @keyframes glitch {
             0% { transform: translate(0); }
             20% { transform: translate(-5px, 5px); }
@@ -34,25 +33,21 @@
             80% { transform: translate(5px, -5px); }
             100% { transform: translate(0); }
         }
-        .glitch:hover { animation: glitch 0.5s ease-in-out; }
 
-        .terminal-3d {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-        .terminal-3d-inner {
-            width: 100%;
-            height: 100%;
-            transform: rotateX(10deg) rotateY(-20deg);
-            transition: transform 0.5s ease-out;
-        }
-        .terminal-3d:hover .terminal-3d-inner {
-            transform: rotateX(0deg) rotateY(0deg);
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .particle {
-            position: absolute;
-            border-radius: 50%;
+        @keyframes typing {
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #4CAF50 }
         }
 
         @keyframes particle-animation {
@@ -66,249 +61,20 @@
             }
         }
 
-        .progress-bar {
-            width: 0;
-            transition: width 1s ease-in-out;
+        @keyframes glowRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
-        .chat-bot {
-            transition: all 0.3s ease-in-out;
-        }
-        .chat-bot:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out;
-        }
-        .theme-option:hover {
-            transform: scale(1.2);
-        }
-
-        .faq-item {
-            transition: all 0.3s ease-in-out;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
-        }
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-        }
-
-        #game-container {
-            width: 300px;
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-        #player {
-            width: 20px;
-            height: 20px;
-            background-color: #6200ea;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .obstacle {
-            width: 20px;
-            height: 20px;
-            background-color: #ff0000;
-            position: absolute;
-            top: -20px;
-        }
-
-        .download-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .download-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: all 0.5s;
-        }
-
-        .download-button:hover::before {
-            left: 100%;
-        }
-
-        .feature-card {
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .testimonial-slider {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .testimonial-slide {
-            display: inline-block;
-            width: 100%;
-            animation: slide 20s linear infinite;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        #cookie-banner {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            z-index: 1000;
-        }
-
-        .bg-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        .typing-effect {
-            overflow: hidden;
-            border-right: 2px solid #4CAF50;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-
-        .typing-effect-delay-1 {
-            overflow: hidden;
-            border-right: 2px solid #4CAF50;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end) 1s forwards, blink-caret 0.75s step-end infinite;
-            opacity: 0;
-        }
-
-        .typing-effect-delay-2 {
-            overflow: hidden;
-            border-right: 2px solid #4CAF50;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end) 2s forwards, blink-caret 0.75s step-end infinite;
-            opacity: 0;
-        }
-
-        @keyframes typing {
-            from {
-                width: 0;
-                opacity: 1;
-            }
+        @keyframes ripple {
             to {
-                width: 100%;
-                opacity: 1;
+                transform: scale(4);
+                opacity: 0;
             }
         }
 
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #4CAF50 }
-        }
-
-        .terminal-3d {
-            perspective: 1500px;
-            transform-style: preserve-3d;
-        }
-
-        .terminal-3d-inner {
-            transform: rotateX(10deg) rotateY(-18deg);
-            transition: transform 0.5s ease-out;
-        }
-
-        .terminal-3d:hover .terminal-3d-inner {
-            transform: rotateX(0deg) rotateY(0deg);
-        }
-
-        .download-button {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.6s;
-        }
-
-        .download-button:hover::after {
-            left: 100%;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .terminal-3d-inner {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 40px rgba(98, 0, 234, 0.2);
-            position: relative;
-            z-index: 1;
-        }
-
-        .download-button {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px rgba(98, 0, 234, 0.2);
-        }
-
-        .download-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(98, 0, 234, 0.4);
-        }
-
-        .float-on-hover {
-            transition: all 0.3s ease;
-        }
-
-        .float-on-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+        .float { animation: float 3s ease-in-out infinite; }
+        .glitch:hover { animation: glitch 0.5s ease-in-out; }
 
         .cursor-blob {
             width: 200px;
@@ -323,20 +89,36 @@
             transition: all 0.1s ease;
         }
 
-        .hover-glow {
-            transition: all 0.3s ease;
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #6200ea;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
         }
 
-        .hover-glow:hover {
-            box-shadow: 0 0 20px rgba(98, 0, 234, 0.4);
-            transform: translateY(-2px);
+        /* Terminal Effects */
+        .terminal-3d {
+            perspective: 1500px;
+            transform-style: preserve-3d;
         }
 
-        .glass-morph {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+        .terminal-3d-inner {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 0 40px rgba(98, 0, 234, 0.2);
+            transform: rotateX(10deg) rotateY(-18deg);
+            transition: transform 0.5s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-3d:hover .terminal-3d-inner {
+            transform: rotateX(0deg) rotateY(0deg);
         }
 
         .magnetic-button {
@@ -344,13 +126,9 @@
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .magnetic-button .button-content {
-            position: relative;
-            z-index: 1;
-        }
-
         .glow-effect {
             position: relative;
+            overflow: hidden;
         }
 
         .glow-effect::before {
@@ -363,11 +141,6 @@
             animation: glowRotate 3s linear infinite;
         }
 
-        @keyframes glowRotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -376,11 +149,67 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+        .glass-morph {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .typing-effect, .typing-effect-delay-1, .typing-effect-delay-2 {
+            overflow: hidden;
+            border-right: 2px solid #4CAF50;
+            white-space: nowrap;
+            opacity: 0;
+        }
+
+        .typing-effect {
+            animation: typing 3.5s steps(40, end) forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        .typing-effect-delay-1 {
+            animation: typing 3.5s steps(40, end) 1s forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        .typing-effect-delay-2 {
+            animation: typing 3.5s steps(40, end) 2s forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to right, #6200ea, #23d5ab);
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
+
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(98, 0, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .float-on-hover {
+            transition: all 0.3s ease;
+        }
+
+        .float-on-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .parallax-tilt {
@@ -392,14 +221,17 @@
             transform: translateZ(20px);
         }
 
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background: #6200ea;
-            border-radius: 50%;
+        #cookie-banner {
+            display: none;
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -427,7 +259,6 @@
                 </button>
             </div>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-nav" class="hidden md:hidden">
             <div class="px-4 py-3 space-y-2">
                 <a href="#features" class="block hover:bg-white/20 px-3 py-2 rounded-lg">Features</a>
