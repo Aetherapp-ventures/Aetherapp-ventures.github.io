@@ -628,205 +628,126 @@
     </header>
 
     <main class="pt-16">
-        <section id="hero" class="min-h-screen relative overflow-hidden" style="background: linear-gradient(-45deg, #6200ea, #3700b3, #23a6d5, #23d5ab); background-size: 400% 400%; animation: gradientBG 15s ease infinite;">
+        <section id="hero" class="min-h-screen relative overflow-hidden gradient-bg">
             <div class="absolute inset-0 bg-black/20"></div>
             <div id="particles" class="absolute inset-0"></div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <div class="max-w-4xl mx-auto">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6 neon-text tracking-tight">
-                        Aether Terminal
-                    </h1>
-                    <p class="text-xl md:text-2xl mb-12 text-white/90">
-                        A powerful terminal emulator designed for modern developers. 
-                        Featuring advanced customization, split views, and seamless workflow integration.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-                        <a href="/downloads/aether_terminal.exe" download 
-                           class="modern-button animated-border floating">
-                            <i class="fas fa-download"></i>
-                            <span>Download for Windows</span>
-                        </a>
-                        <a href="docu.html" 
-                           class="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center space-x-2">
-                            <i class="fas fa-book"></i>
-                            <span>Documentation</span>
-                        </a>
+            <div class="container mx-auto px-6 py-20 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+                    <div class="text-left">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                            The Future of Terminal Experience
+                        </h1>
+                        <p class="text-xl md:text-2xl mb-8 text-white/90">
+                            Experience the next evolution in terminal emulation. Built for developers who demand both power and elegance.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="/downloads/aether_terminal.exe" class="neo-button group">
+                                <span class="relative z-10 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download v1.1.0
+                                    <span class="ml-2 text-sm opacity-70">| Windows 10/11</span>
+                                </span>
+                            </a>
+                            <a href="#features" class="glass-button">
+                                <span class="relative z-10 flex items-center">
+                                    <i class="fas fa-arrow-right mr-2"></i>
+                                    Explore Features
+                                </span>
+                            </a>
+                        </div>
+                        <div class="mt-8 flex items-center gap-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                <span>4.9/5 Rating</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-download text-green-400 mr-2"></i>
+                                <span>10K+ Downloads</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-sm text-white/60">
-                        Version 1.1.0 | Windows 10/11 | 2.5 MB
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="terminal-preview mt-12 max-w-4xl mx-auto px-6">
-                <div class="terminal-3d glass-card">
-                    <div class="terminal-3d-inner rounded-xl overflow-hidden">
-                        <div class="flex justify-between items-center px-4 py-3 bg-gray-800/50 backdrop-blur-sm border-b border-white/10">
-                            <div class="flex items-center space-x-2">
-                                <div class="flex space-x-2">
-                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <div class="terminal-showcase">
+                        <div class="terminal-3d glass-card">
+                            <div class="terminal-header flex justify-between items-center p-3 bg-gray-900/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <span class="text-sm text-white/70">~ aether-terminal</span>
                                 </div>
-                                <div class="text-sm text-white/70 ml-3">Aether Terminal</div>
+                                <div class="flex items-center gap-2">
+                                    <button class="text-white/50 hover:text-white/80">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div  class="flex items-center space-x-4">
-                                <button class="text-white/50 hover:text-white/80">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button class="text-white/50 hover:text-white/80">
-                                    <i class="fas fa-expand"></i>
-                                </button>
+                            <div class="terminal-content p-4 font-mono text-sm">
+                                <div class="typing-effect mb-2">
+                                    <span class="text-green-400">➜</span>
+                                    <span class="text-white/90">Welcome to Aether Terminal</span>
+                                </div>
+                                <div class="typing-effect-delay-1 mb-2">
+                                    <span class="text-blue-400">git:(</span>
+                                    <span class="text-purple-400">master</span>
+                                    <span class="text-blue-400">)</span>
+                                    <span class="text-white/90">$ npm install @aether/cli</span>
+                                </div>
+                                <div class="typing-effect-delay-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="animate-spin">⠋</div>
+                                        <span class="text-white/90">Installing dependencies...</span>
+                                    </div>
+                                    <div class="progress-bar-container mt-2 bg-gray-800 rounded-full h-1">
+                                        <div class="progress-bar bg-gradient-to-r from-purple-500 to-blue-500 h-full rounded-full"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-6 font-mono text-sm">
-                            <div class="typing-effect">
-                                <span class="text-green-400">λ</span>
-                                <span class="text-white/90">Welcome to Aether Terminal</span>
-                            </div>
-                            <div class="typing-effect-delay-1">
-                                <span class="text-green-400">λ</span>
-                                <span class="text-white/90">Terminal ready</span>
-                            </div>
-                            <div class="typing-effect-delay-2">
-                                <span class="text-green-400">λ</span>
-                                <span class="text-blue-400">Type 'help' to get started</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="try-it" class="bg-gray-900 text-white py-20">
+        <section id="features" class="py-20 bg-gray-900">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Try Aether Terminal Now!</h2>
-                <div class="bg-black rounded-lg shadow-2xl overflow-hidden max-w-3xl mx-auto">
-                    <div class="flex justify-between items-center px-4 py-2 bg-gray-800">
-                        <div class="text-sm">Aether Terminal</div>
-                        <div class="flex space-x-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        </div>
-                    </div>
-                    <div id="terminal" class="h-80 overflow-y-auto p-4 font-mono text-sm">
-                        <div class="mb-2"><span class="text-green-400">C:\Users\AetherUser&gt;</span> <span class="text-white" id="user-input"></span></div>
-                    </div>
-                    <div class="px-4 py-2 bg-gray-800">
-                        <input type="text" id="command-input" class="w-full bg-transparent text-white outline-none" placeholder="Type your command here...">
-                    </div>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Powerful Features</h2>
+                    <p class="text-xl text-gray-400">Everything you need in a modern terminal emulator</p>
                 </div>
-            </div>
-        </section>
-
-        <section id="stats" class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Aether Terminal by the Numbers</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="glass-effect rounded-xl p-8 float-on-hover">
-                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="117">103</span>+</div>
-                        <div class="text-xl">Happy Users</div>
-                    </div>
-                    <div class="glass-effect rounded-xl p-8 float-on-hover">
-                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="20">12</span>+</div>
-                        <div  class="text-xl">Custom Themes</div>
-                    </div>
-                    <div class="glass-effect rounded-xl p-8 float-on-hover">
-                        <div class="text-4xl font-bold mb-2"><span class="stat-counter" data-target="99">76</span>%</div>
-                        <div class="text-xl">User Satisfaction</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="customizer" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center  mb-12">Customize Your Terminal</h2>
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <div class="theme-option bg-blue-500" data-theme="blue"></div>
-                    <div class="theme-option bg-green-500" data-theme="green"></div>
-                    <div class="theme-option bg-red-500" data-theme="red"></div>
-                    <div class="theme-option bg-purple-500" data-theme="purple"></div>
-                    <div class="theme-option bg-yellow-500" data-theme="yellow"></div>
-                </div>
-                <div id="theme-preview" class="bg-black text-green-400 p-4 rounded-lg max-w-2xl mx-auto font-mono">
-                    <p>> Welcome to Aether Terminal</p>
-                    <p>> Customization is at your fingertips</p>
-                    <p>> Choose a theme to see it in action</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="memes" class="py-20 bg-gray-100 dark:bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meme-tastic Terminal Moments</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placekitten.com/400/300" alt="Funny Terminal Meme 1" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">When the code finally compiles</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">That feeling when your code works on the first try. Must be a glitch in the Matrix!</p>
+                    <div class="feature-card glass-card hover:scale-105 transition-all duration-300">
+                        <div class="feature-icon mb-6">
+                            <i class="fas fa-terminal text-4xl text-purple-500"></i>
                         </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placekitten.com/401/300" alt="Funny Terminal Meme 2" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">Debugging at 3 AM</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">Who needs sleep when you have bugs to fix and coffee to drink?</p>
-                        </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placekitten.com/402/300" alt="Funny Terminal Meme 3" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="font-bold mb-2">Tab Overload</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">When you have so many tabs open, your terminal starts sweating.</p>
-                        </div>
+                        <h3 class="text-xl font-bold mb-4">Smart Command Completion</h3>
+                        <p class="text-gray-400">Context-aware suggestions and history-based command completion to boost your productivity.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="faq" class="py-20 bg-gray-900">
+        <section id="workflow" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Common Questions</h2>
-                <div class="max-w-3xl mx-auto space-y-6">
-                    <div class="glass-card">
-                        <h3 class="text-xl font-bold mb-2">Is Aether Terminal free to use?</h3>
-                        <p class="text-gray-300">Yes, Aether Terminal is free and open-source software under the MIT license.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="terminal-demo glass-card">
                     </div>
-                    <div class="glass-card">
-                        <h3 class="text-xl font-bold mb-2">Can I import my existing terminal settings?</h3>
-                        <p class="text-gray-300">Yes, Aether Terminal supports importing configurations from most popular terminal emulators.</p>
-                    </div>
-                    <div class="glass-card">
-                        <h3 class="text-xl font-bold mb-2">What operating systems are supported?</h3>
-                        <p class="text-gray-300">Currently Windows 10/11, with macOS and Linux support coming soon.</p>
+                    <div class="space-y-8">
+                        <h2 class="text-4xl font-bold gradient-text">Streamlined Workflow</h2>
+                        <div class="space-y-4">
+                            <div class="workflow-item flex items-start gap-4">
+                                <div class="workflow-icon p-2 rounded-lg bg-purple-500/20">
+                                    <i class="fas fa-code text-purple-500"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">Split Panes</h3>
+                                    <p class="text-gray-400">Work on multiple tasks simultaneously with customizable split views.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="contact" class="relative py-20 overflow-hidden" style="background: linear-gradient(135deg, #6200ea, #3700b3);">
-            <div class="absolute inset-0 bg-pattern opacity-10"></div>
-            <div class="container mx-auto px-6 relative">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Get in Touch (We don't byte!)</h2>
-                <form class="max-w-lg mx-auto">
-                    <div class="mb-6">
-                        <label for="name" class="block mb-2">Name</label>
-                        <input type="text" id="name" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="email" class="block mb-2">Email</label>
-                        <input type="email" id="email" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="message" class="block mb-2">Message</label>
-                        <textarea id="message" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-white text-primary font-bold py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">Send</button>
-                </form>
             </div>
         </section>
     </main>
