@@ -824,16 +824,18 @@ class CookieManager {
     constructor() {
         this.cookieName = 'aetherapp_consent';
         this.cookieConsent = document.getElementById('cookie-consent');
+        this.simpleBanner = document.getElementById('cookie-banner');
         this.init();
     }
 
     init() {
-        if (!this.getCookie(this.cookieName)) {
-            setTimeout(() => {
-                if (this.cookieConsent) {
-                    this.cookieConsent.style.transform = 'translateY(0)';
-                }
-            }, 1000);
+        if (this.getCookie(this.cookieName)) {
+            this.hideAllBanners();
+            return;
+        }
+
+        if (this.simpleBanner) {
+            this.simpleBanner.style.display = 'block';
         }
 
         this.initEventListeners();
@@ -842,33 +844,31 @@ class CookieManager {
     initEventListeners() {
         const acceptBtn = document.getElementById('accept-cookies');
         const rejectBtn = document.getElementById('reject-cookies');
-        const analyticsCheckbox = document.getElementById('analytics-cookies');
 
         if (acceptBtn) {
-            acceptBtn.addEventListener('click', () => {
+            acceptBtn.addEventListener('click', (e) => {
+                e.preventDefault(); 
                 this.setCookie(this.cookieName, 'accepted', 365);
                 this.setCookie('analytics_consent', 'true', 365);
-                this.hideBanner();
+                this.hideAllBanners();
             });
         }
 
         if (rejectBtn) {
-            rejectBtn.addEventListener('click', () => {
+            rejectBtn.addEventListener('click', (e) => {
+                e.preventDefault(); 
                 this.setCookie(this.cookieName, 'rejected', 365);
                 this.setCookie('analytics_consent', 'false', 365);
-                this.hideBanner();
+                this.hideAllBanners();
             });
-        }
-
-        if (analyticsCheckbox) {
-            const savedAnalytics = this.getCookie('analytics_consent');
-            if (savedAnalytics === 'true') {
-                analyticsCheckbox.checked = true;
-            }
         }
     }
 
-    hideBanner() {
+    hideAllBanners() {
+        if (this.simpleBanner) {
+            this.simpleBanner.style.display = 'none';
+        }
+
         if (this.cookieConsent) {
             this.cookieConsent.style.transform = 'translateY(100%)';
             setTimeout(() => {
@@ -890,5 +890,5 @@ class CookieManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new CookieManager();
+    window.cookieManager = new CookieManager();
 });
