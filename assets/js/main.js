@@ -834,32 +834,40 @@ class CookieManager {
             return;
         }
 
-        if (this.simpleBanner) {
-            this.simpleBanner.style.display = 'block';
+        if (this.cookieConsent) {
+            setTimeout(() => {
+                this.cookieConsent.style.transform = 'translateY(0)';
+            }, 1000);
         }
 
         this.initEventListeners();
     }
 
     initEventListeners() {
-        const acceptBtn = document.getElementById('accept-cookies');
-        const rejectBtn = document.getElementById('reject-cookies');
-
-        if (acceptBtn) {
-            acceptBtn.addEventListener('click', (e) => {
-                e.preventDefault(); 
+        document.querySelectorAll('[id="accept-cookies"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.setCookie(this.cookieName, 'accepted', 365);
                 this.setCookie('analytics_consent', 'true', 365);
                 this.hideAllBanners();
             });
-        }
+        });
 
-        if (rejectBtn) {
-            rejectBtn.addEventListener('click', (e) => {
-                e.preventDefault(); 
+        document.querySelectorAll('[id="reject-cookies"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.setCookie(this.cookieName, 'rejected', 365);
                 this.setCookie('analytics_consent', 'false', 365);
                 this.hideAllBanners();
+            });
+        });
+
+        const analyticsCheckbox = document.getElementById('analytics-cookies');
+        if (analyticsCheckbox) {
+            analyticsCheckbox.addEventListener('change', (e) => {
+                this.setCookie('analytics_consent', e.target.checked ? 'true' : 'false', 365);
             });
         }
     }
@@ -890,5 +898,9 @@ class CookieManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.cookieManager) {
+        delete window.cookieManager;
+    }
+    
     window.cookieManager = new CookieManager();
 });
