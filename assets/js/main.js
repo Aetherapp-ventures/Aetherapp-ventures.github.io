@@ -251,4 +251,194 @@ document.addEventListener('mousemove', (e) => {
     cursorTimeout = setTimeout(() => {
         cursor.style.transform = 'translate(-50%, -50%) scale(1)';
     }, 100);
-}); 
+});
+
+class SmoothMouseTrail {
+    constructor() {
+        this.trail = [];
+        this.trailLength = 20; 
+        this.currentMousePos = { x: 0, y: 0 };
+        this.init();
+    }
+
+    init() {
+        for (let i = 0; i < this.trailLength; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'mouse-trail-dot';
+            document.body.appendChild(dot);
+            this.trail.push({
+                element: dot,
+                x: 0,
+                y: 0
+            });
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .mouse-trail-dot {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: rgba(98, 0, 234, 0.3);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.1s ease;
+                transform: translate(-50%, -50%);
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.addEventListener('mousemove', (e) => {
+            this.currentMousePos.x = e.clientX;
+            this.currentMousePos.y = e.clientY;
+        });
+
+        this.animate();
+    }
+
+    animate() {
+        let x = this.currentMousePos.x;
+        let y = this.currentMousePos.y;
+
+        this.trail.forEach((dot, index) => {
+            const nextDot = this.trail[index + 1] || this.trail[0];
+            
+            dot.x += (x - dot.x) * 0.3;
+            dot.y += (y - dot.y) * 0.3;
+
+            dot.element.style.left = `${dot.x}px`;
+            dot.element.style.top = `${dot.y}px`;
+            dot.element.style.opacity = 1 - (index / this.trailLength);
+            dot.element.style.transform = `translate(-50%, -50%) scale(${1 - (index / this.trailLength)})`;
+
+            x = dot.x;
+            y = dot.y;
+        });
+
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+new SmoothMouseTrail();
+
+class CookieConsent {
+    constructor() {
+        this.cookieName = 'cookieConsent';
+        this.consentBanner = this.createBanner();
+        this.init();
+    }
+
+    createBanner() {
+        const banner = document.createElement('div');
+        banner.className = 'cookie-consent-banner';
+        banner.innerHTML = `
+            <div class="cookie-content">
+                <p>We use cookies to enhance your experience. 
+                   By continuing to visit this site you agree to our use of cookies.</p>
+                <div class="cookie-buttons">
+                    <button class="accept-button">Accept</button>
+                    <button class="decline-button">Decline</button>
+                </div>
+            </div>
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .cookie-consent-banner {
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                padding: 1.5rem 2rem;
+                border-radius: 1rem;
+                z-index: 9999;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                max-width: 500px;
+                width: 90%;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .cookie-content {
+                color: white;
+                text-align: center;
+            }
+            .cookie-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            .cookie-buttons button {
+                padding: 0.5rem 1.5rem;
+                border: none;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+            .cookie-buttons button:hover {
+                transform: translateY(-2px);
+            }
+            .accept-button {
+                background: #6200ea;
+                color: white;
+            }
+            .decline-button {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+        `;
+        document.head.appendChild(style);
+
+        return banner;
+    }
+
+    init() {
+        if (!this.getCookie(this.cookieName)) {
+            document.body.appendChild(this.consentBanner);
+            setTimeout(() => {
+                this.consentBanner.style.opacity = '1';
+            }, 100);
+
+            this.consentBanner.querySelector('.accept-button').addEventListener('click', () => {
+                this.setCookie(this.cookieName, 'accepted', 365);
+                this.hideBanner();
+            });
+
+            this.consentBanner.querySelector('.decline-button').addEventListener('click', () => {
+                this.setCookie(this.cookieName, 'declined', 365);
+                this.hideBanner();
+            });
+        }
+    }
+
+    setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/`;
+    }
+
+    getCookie(name) {
+        const nameEQ = `${name}=`;
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    hideBanner() {
+        this.consentBanner.style.opacity = '0';
+        setTimeout(() => {
+            this.consentBanner.remove();
+        }, 300);
+    }
+}
+
+new CookieConsent();
