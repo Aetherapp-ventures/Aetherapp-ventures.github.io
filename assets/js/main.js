@@ -508,7 +508,6 @@ class TextSplitAnimation {
     }
 
     init() {
-        // Split text into spans
         this.element.innerHTML = this.originalText
             .split('')
             .map(char => `<span class="char">${char}</span>`)
@@ -537,7 +536,6 @@ class TextSplitAnimation {
     }
 }
 
-// Enhanced mouse trail effect
 class EnhancedMouseTrail {
     constructor() {
         this.points = [];
@@ -575,7 +573,6 @@ class EnhancedMouseTrail {
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Update and draw points
             for (let i = 0; i < this.points.length; i++) {
                 const point = this.points[i];
                 point.age++;
@@ -593,7 +590,6 @@ class EnhancedMouseTrail {
                 ctx.fill();
             }
 
-            // Draw lines between points
             ctx.beginPath();
             ctx.strokeStyle = 'rgba(98, 0, 234, 0.5)';
             ctx.lineWidth = 2;
@@ -613,7 +609,6 @@ class EnhancedMouseTrail {
     }
 }
 
-// Add magnetic effect to all interactive elements
 class MagneticEffect {
     constructor(elements) {
         this.elements = elements;
@@ -639,20 +634,15 @@ class MagneticEffect {
     }
 }
 
-// Initialize all animations
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize text split animations for headings
     document.querySelectorAll('h1, h2').forEach(heading => {
         new TextSplitAnimation(heading);
     });
 
-    // Initialize enhanced mouse trail
     new EnhancedMouseTrail();
 
-    // Add magnetic effect to interactive elements
     new MagneticEffect(document.querySelectorAll('.neo-button, .glass-card'));
 
-    // Add scroll-triggered animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -673,4 +663,159 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         observer.observe(el);
     });
+});
+
+
+class GlowingCursor {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        const glowingOrb = document.createElement('div');
+        glowingOrb.className = 'glowing-orb';
+        document.body.appendChild(glowingOrb);
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .glowing-orb {
+                position: fixed;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(
+                    circle at center,
+                    rgba(98, 0, 234, 0.15) 0%,
+                    rgba(98, 0, 234, 0.1) 20%,
+                    transparent 65%
+                );
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s ease, height 0.3s ease;
+                mix-blend-mode: screen;
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                glowingOrb.style.left = `${e.clientX}px`;
+                glowingOrb.style.top = `${e.clientY}px`;
+            });
+        });
+
+        document.querySelectorAll('a, button, .glass-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                glowingOrb.style.width = '400px';
+                glowingOrb.style.height = '400px';
+            });
+            el.addEventListener('mouseleave', () => {
+                glowingOrb.style.width = '300px';
+                glowingOrb.style.height = '300px';
+            });
+        });
+    }
+}
+
+class InteractiveStars {
+    constructor() {
+        this.stars = [];
+        this.mousePos = { x: 0, y: 0 };
+        this.init();
+    }
+
+    init() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9997;
+        `;
+        document.body.appendChild(canvas);
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        for (let i = 0; i < 50; i++) {
+            this.stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speed: Math.random() * 2 + 1
+            });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            this.mousePos.x = e.clientX;
+            this.mousePos.y = e.clientY;
+        });
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            this.stars.forEach(star => {
+                const dx = this.mousePos.x - star.x;
+                const dy = this.mousePos.y - star.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 150) {
+                    const angle = Math.atan2(dy, dx);
+                    star.x -= Math.cos(angle) * star.speed;
+                    star.y -= Math.sin(angle) * star.speed;
+                }
+
+                if (star.x < 0) star.x = canvas.width;
+                if (star.x > canvas.width) star.x = 0;
+                if (star.y < 0) star.y = canvas.height;
+                if (star.y > canvas.height) star.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(98, 0, 234, ${0.5 - dist / 300})`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
+}
+
+class MagneticLinks {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const dist = Math.sqrt(x * x + y * y);
+                const strength = Math.min(dist / 5, 15);
+
+                el.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+                el.style.transition = 'transform 0.15s ease';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+                el.style.transition = 'transform 0.3s ease';
+            });
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new GlowingCursor();
+    new InteractiveStars();
+    new MagneticLinks();
 });
