@@ -107,5 +107,3 @@ To remove Aether Terminal from your system:
 
 For source installations, simply delete the cloned repository and build directory.
 ```
-
-These comprehensive guides should provide users with all the necessary information to install Aether Terminal and get started with its basic and advanced features. The guides are structured, detailed, and cover various scenarios and operating systems to ensure a smooth experience for all users.
