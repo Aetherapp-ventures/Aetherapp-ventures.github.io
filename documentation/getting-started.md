@@ -1,7 +1,3 @@
-```markdown project="Aether Terminal" file="installation.md"
-...
-```
-
 git clone [https://github.com/Aetherapp-ventures/aether-terminal.git](https://github.com/Aetherapp-ventures/aether-terminal.git)
 
 ```plaintext

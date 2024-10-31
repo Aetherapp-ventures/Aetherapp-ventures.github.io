@@ -1,7 +1,3 @@
-```markdown project="Aether Terminal" file="getting-started.md"
-...
-```
-
 ./aether_terminal
 
 ```plaintext
