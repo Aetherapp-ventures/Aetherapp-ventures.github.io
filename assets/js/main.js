@@ -203,4 +203,52 @@ document.querySelectorAll('.neo-button').forEach(button => {
         button.style.setProperty('--x', `${x}px`);
         button.style.setProperty('--y', `${y}px`);
     });
+});
+
+document.querySelectorAll('section').forEach(section => {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = section.dataset.scrollRate || 0.3;
+        section.style.transform = `translate3d(0, ${scrolled * rate}px, 0)`;
+    });
+});
+
+document.querySelectorAll('.glass-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        card.style.transform = `
+            perspective(1000px) 
+            rotateX(${rotateX}deg) 
+            rotateY(${rotateY}deg)
+            translateZ(20px)
+        `;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+    });
+});
+
+const cursor = document.querySelector('.cursor-blob');
+let cursorTimeout;
+
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    clearTimeout(cursorTimeout);
+    
+    cursorTimeout = setTimeout(() => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    }, 100);
 }); 
