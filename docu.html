@@ -264,14 +264,14 @@
                 const contentDiv = document.getElementById('markdown-content');
                 const tocDiv = document.getElementById('toc');
                 
-                // Clear previous content
+                
                 contentDiv.innerHTML = '';
                 tocDiv.innerHTML = '';
                 
-                // Render markdown
+                
                 contentDiv.innerHTML = marked.parse(text);
                 
-                // Add copy buttons to code blocks
+                s
                 document.querySelectorAll('pre code').forEach(block => {
                     const button = document.createElement('button');
                     button.className = 'absolute top-2 right-2 p-2 rounded-lg bg-gray-800/50 hover:bg-gray-800/75 text-gray-400 hover:text-white transition-colors';
@@ -290,13 +290,13 @@
                     wrapper.appendChild(block.parentNode);
                 });
 
-                // Highlight code
+                
                 Prism.highlightAll();
                 
-                // Generate TOC
+                
                 generateTOC();
                 
-                // Update navigation
+                
                 updateNavigation(path);
             } catch (error) {
                 console.error('Error loading markdown:', error);
@@ -380,7 +380,7 @@
             });
         });
 
-        // Update marked configuration for better rendering
+        
         marked.setOptions({
             renderer: new marked.Renderer(),
             highlight: function(code, lang) {
@@ -397,7 +397,7 @@
             xhtml: false
         });
 
-        // Custom renderer to add classes and improve HTML structure
+        
         const renderer = new marked.Renderer();
 
         renderer.heading = function(text, level) {
