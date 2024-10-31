@@ -4,10 +4,9 @@ Welcome to the Aether Terminal documentation. This comprehensive guide will help
 
 ## Table of Contents
 
-1. [Getting Started](./getting-started.md)
-2. [Installation Guide](./installation.md)
-4. [AI Assistant](./ai-assistant.md)
-6. [Customization](./customization.md)
+1. [Getting Started](./documentation/getting-started.md)
+2. [Prequisites](./documentation/prequisites.md)
+3. [Installation Guide](./documentation/installation.md)
 
 ## Quick Links
 
