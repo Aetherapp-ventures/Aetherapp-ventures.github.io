@@ -835,44 +835,61 @@
 
     <main class="pt-16">
         <section id="hero" class="min-h-screen relative overflow-hidden bg-black">
-            <div class="absolute inset-0 bg-gradient-to-b from-primary/20 to-black/50"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black via-primary/5 to-black"></div>
             
-            <div id="particles" class="absolute inset-0"></div>
+            <div id="particles" class="absolute inset-0 opacity-30"></div>
             
-            <div class="container mx-auto px-6 py-32 relative z-10">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h1 class="text-7xl md:text-8xl font-bold mb-8 leading-tight enchanted-text">
-                        Aether Terminal
-                    </h1>
-                    
-                    <p class="text-xl md:text-2xl text-white/70 mb-12">
-                        A modern terminal emulator for Windows
-                    </p>
-
-                    <div class="flex flex-wrap gap-6">
-                        <a href="/downloads/aether_terminal.exe" 
-                           class="neo-button group relative overflow-hidden">
-                            <span class="relative z-10 flex items-center">
-                                <i class="fas fa-download mr-2"></i>
-                                Download
-                                <span class="ml-2 text-sm opacity-70">v1.1.0</span>
-                            </span>
-                        </a>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="min-h-screen flex flex-col justify-center">
+                    <div class="max-w-4xl">
+                        <h1 class="text-8xl md:text-9xl font-bold mb-8 tracking-tight">
+                            <span class="block text-white">Aether</span>
+                            <span class="block text-white/80">Terminal</span>
+                        </h1>
                         
-                        <a href="/docu.html?doc=installation.md" 
-                           class="glass-button group relative overflow-hidden">
-                            <span class="relative z-10 flex items-center">
-                                <i class="fas fa-book mr-2"></i>
-                                Documentation
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                        <p class="text-xl md:text-2xl text-white/60 max-w-2xl mb-12 font-light">
+                            A modern terminal experience for Windows.
+                        </p>
 
-            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-                <div class="w-6 h-10 border-2 border-white/30 rounded-full p-1">
-                    <div class="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce mx-auto"></div>
+                        <div class="flex flex-wrap gap-8">
+                            <a href="/downloads/aether_terminal.exe" 
+                               class="group relative inline-flex items-center">
+                                <span class="relative z-10 flex items-center text-lg font-light">
+                                    Download
+                                    <svg class="w-6 h-6 ml-4 transform group-hover:translate-x-2 transition-transform" 
+                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" 
+                                              d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </span>
+                                <div class="absolute bottom-0 left-0 right-0 h-px bg-white/20 transform origin-left 
+                                          transition-transform group-hover:scale-x-100 scale-x-0"></div>
+                            </a>
+                            
+                            <a href="/docu.html?doc=installation.md" 
+                               class="group relative inline-flex items-center">
+                                <span class="relative z-10 flex items-center text-lg font-light text-white/80">
+                                    Documentation
+                                    <svg class="w-6 h-6 ml-4 transform group-hover:translate-x-2 transition-transform" 
+                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" 
+                                              d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                    </svg>
+                                </span>
+                                <div class="absolute bottom-0 left-0 right-0 h-px bg-white/20 transform origin-left 
+                                          transition-transform group-hover:scale-x-100 scale-x-0"></div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-12 left-0 w-full">
+                        <div class="container mx-auto px-6">
+                            <div class="flex items-center gap-4">
+                                <div class="h-px bg-white/20 flex-grow"></div>
+                                <span class="text-white/40 text-sm uppercase tracking-widest">Scroll</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
