@@ -840,75 +840,48 @@
     </header>
 
     <main class="pt-16">
-        <section id="hero" class="min-h-screen relative overflow-hidden gradient-bg">
-            <div class="absolute inset-0 bg-black/20"></div>
-            <div id="particles" class="absolute inset-0"></div>
-            <div class="container mx-auto px-6 py-20 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-                    <div class="text-left">
-                        <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                            <span class="enchanted-text">Aether Terminal</span>
-                        </h1>
-                        <p class="text-xl md:text-2xl mb-8 text-white/90">
-                            <span class="reveal-text" data-text="A modern terminal emulator designed for developers who demand power, flexibility, and elegance.">
-                                A modern terminal emulator designed for developers who demand power, flexibility, and elegance.
+        <section id="hero" class="min-h-screen relative overflow-hidden bg-black">
+            <div class="absolute inset-0">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
+            </div>
+            
+            <div class="container mx-auto px-6 py-32 relative z-10">
+                <div class="max-w-4xl">
+                    <h1 class="text-6xl md:text-8xl font-bold mb-8 leading-tight">
+                        <span class="block text-split-animation">Aether Terminal</span>
+                        <span class="block text-split-animation delay-100">Modern Terminal</span>
+                        <span class="block text-split-animation delay-200">Experience</span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl text-white/70 max-w-2xl mb-12 fade-in-up">
+                        A terminal emulator designed for developers who value both functionality and aesthetics.
+                    </p>
+
+                    <div class="flex flex-wrap gap-6">
+                        <a href="/docu.html?doc=installation.md" 
+                           class="group relative px-8 py-4 bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden">
+                            <span class="relative z-10 flex items-center text-lg">
+                                <span class="mr-3">Get Started</span>
+                                <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" 
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
                             </span>
-                        </p>
-                        <div class="flex flex-wrap gap-4">
-                            <a href="/downloads/aether_terminal.exe" class="neo-button group">
-                                <span class="relative z-10 flex items-center">
-                                    <i class="fas fa-download mr-2"></i>
-                                    Download for Windows
-                                    <span class="ml-2 text-sm opacity-70">| v1.1.0</span>
-                                </span>
-                            </a>
-                            <a href="/docu.html" class="glass-button">
-                                <span class="relative z-10 flex items-center">
-                                    <i class="fas fa-book mr-2"></i>
-                                    Documentation
-                                </span>
-                            </a>
-                        </div>
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 
+                                        transform group-hover:translate-x-full transition-transform duration-500"></div>
+                        </a>
                     </div>
-                    <div class="terminal-showcase">
-                        <div class="terminal-3d glass-card">
-                            <div class="terminal-header flex justify-between items-center p-3 bg-gray-900/50">
-                                <div class="flex items-center gap-2">
-                                    <div class="flex gap-2">
-                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                    </div>
-                                    <span class="text-sm text-white/70">~ aether-terminal</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <button class="text-white/50 hover:text-white/80">
-                                        <i class="fas fa-expand-arrows-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="terminal-content p-4 font-mono text-sm">
-                                <div class="typing-effect mb-2">
-                                    <span class="text-green-400">➜</span>
-                                    <span class="text-white/90">Welcome to Aether Terminal</span>
-                                </div>
-                                <div class="typing-effect-delay-1 mb-2">
-                                    <span class="text-blue-400">git:(</span>
-                                    <span class="text-purple-400">master</span>
-                                    <span class="text-blue-400">)</span>
-                                    <span class="text-white/90">$ npm install @aether/cli</span>
-                                </div>
-                                <div class="typing-effect-delay-2">
-                                    <div class="flex items-center gap-2">
-                                        <div class="animate-spin">⠋</div>
-                                        <span class="text-white/90">Installing dependencies...</span>
-                                    </div>
-                                    <div class="progress-bar-container mt-2 bg-gray-800 rounded-full h-1">
-                                        <div class="progress-bar bg-gradient-to-r from-purple-500 to-blue-500 h-full rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-12 left-0 w-full overflow-hidden pointer-events-none">
+                <div class="marquee-container">
+                    <div class="marquee-content flex space-x-8 animate-marquee">
+                        <span class="text-2xl font-light opacity-50">Performance</span>
+                        <span class="text-2xl font-light opacity-50">Customization</span>
+                        <span class="text-2xl font-light opacity-50">Efficiency</span>
+                        <span class="text-2xl font-light opacity-50">Modern Design</span>
                     </div>
                 </div>
             </div>
@@ -924,43 +897,40 @@
             </div>
         </div>
 
-        <section id="key-features" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
+        <section id="features" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">
-                    <span class="magical-glow">Core Features</span>
+                <h2 class="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
+                    Core Features
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-card hover:scale-105 transition-all duration-300">
-                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-columns"></i></div>
-                        <h3 class="text-xl font-bold mb-4">Advanced Split Panes</h3>
-                        <ul class="space-y-2 text-gray-300">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Horizontal & Vertical Splits</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Drag & Drop Reorganization</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Individual Pane Settings</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Layout Presets</li>
-                        </ul>
+                    <div class="glass-card">
+                        <div class="text-3xl mb-4 text-purple-500">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Modern Interface</h3>
+                        <p class="text-gray-300">
+                            Clean, efficient interface designed for productivity.
+                        </p>
                     </div>
                     
-                    <div class="glass-card hover:scale-105 transition-all duration-300">
-                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-terminal"></i></div>
-                        <h3 class="text-xl font-bold mb-4">Shell Integration</h3>
-                        <ul class="space-y-2 text-gray-300">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>PowerShell Support</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>WSL Integration</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Shell Configs</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Environment Management</li>
-                        </ul>
+                    <div class="glass-card">
+                        <div class="text-3xl mb-4 text-purple-500">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Performance Focused</h3>
+                        <p class="text-gray-300">
+                            Built for speed and reliability.
+                        </p>
                     </div>
                     
-                    <div class="glass-card hover:scale-105 transition-all duration-300">
-                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-paint-brush"></i></div>
-                        <h3 class="text-xl font-bold mb-4">Customization</h3>
-                        <ul class="space-y-2 text-gray-300">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Color Schemes</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Font Ligatures</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Keybindings</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i>Theme Editor</li>
-                        </ul>
+                    <div class="glass-card">
+                        <div class="text-3xl mb-4 text-purple-500">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Customizable</h3>
+                        <p class="text-gray-300">
+                            Adapt the terminal to your workflow.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1126,112 +1096,20 @@
             </div>
         </section>
 
-        <section id="setup" class="py-20 bg-gray-900">
+        <section id="get-started" class="py-20 bg-gray-900">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Quick Setup</h2>
-                <div class="max-w-3xl mx-auto">
-                    <div class="glass-card mb-8">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                                <i class="fas fa-download text-purple-500"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold">1. Download & Install</h3>
-                                <p class="text-gray-400">Simple installation process, no complex setup required</p>
-                            </div>
-                        </div>
-                        <div class="font-mono bg-black/30 p-4 rounded-lg">
-                            <code class="text-green-400">winget install AetherTerminal</code>
-                        </div>
-                    </div>
-
-                    <div class="glass-card mb-8">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                <i class="fas fa-cog text-blue-500"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold">2. Configure</h3>
-                                <p class="text-gray-400">Basic configuration to get you started</p>
-                            </div>
-                        </div>
-                        <div class="font-mono bg-black/30 p-4 rounded-lg">
-                            <code class="text-blue-400">aether --config init</code>
-                        </div>
-                    </div>
-
-                    <div class="glass-card">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                                <i class="fas fa-check text-green-500"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold">3. Ready to Go</h3>
-                                <p class="text-gray-400">Start using Aether Terminal</p>
-                            </div>
-                        </div>
-                        <div class="font-mono bg-black/30 p-4 rounded-lg">
-                            <code class="text-green-400">aether</code>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="magic-features" class="py-20 bg-gray-900">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 sparkly-text">
-                    Terminal Magic
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Command Prediction -->
-                    <div class="glass-card magic-border">
-                        <div class="text-4xl mb-6 text-purple-500">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 sparkly-text">Smart Command Prediction</h3>
-                        <p class="text-gray-300">
-                            Predicts your next command based on your workflow patterns and command history.
-                        </p>
-                        <div class="mt-4 font-mono bg-black/30 p-3 rounded">
-                            <span class="text-green-400">$</span>
-                            <span class="text-white">git p</span>
-                            <span class="text-gray-500">ush origin main ↵</span>
-                        </div>
-                    </div>
-
-                    <!-- Multi-Language Support -->
-                    <div class="glass-card magic-border">
-                        <div class="text-4xl mb-6 text-blue-500">
-                            <i class="fas fa-language"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 sparkly-text">Polyglot Terminal</h3>
-                        <p class="text-gray-300">
-                            Seamlessly switch between different programming languages and shell environments.
-                        </p>
-                        <div class="mt-4 font-mono bg-black/30 p-3 rounded">
-                            <span class="text-blue-400">></span>
-                            <span class="text-white">python</span>
-                            <span class="text-gray-500"> | node | ruby ↵</span>
-                        </div>
-                    </div>
-
-                    <!-- Smart Layout -->
-                    <div class="glass-card magic-border">
-                        <div class="text-4xl mb-6 text-green-500">
-                            <i class="fas fa-wand-sparkles"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4 sparkly-text">Adaptive Layout</h3>
-                        <p class="text-gray-300">
-                            Terminal windows that automatically arrange based on your workflow and screen space.
-                        </p>
-                        <div class="mt-4 font-mono bg-black/30 p-3 rounded">
-                            <span class="text-green-400">$</span>
-                            <span class="text-white">layout</span>
-                            <span class="text-gray-500"> --smart-arrange ↵</span>
-                        </div>
-                    </div>
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500">
+                        Get Started
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Ready to begin? Check out our documentation for installation and setup instructions.
+                    </p>
+                    <a href="https://aetherapp-ventures.github.io/docu.html?doc=installation.md" 
+                       class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 transition-colors rounded-lg text-white font-semibold">
+                        <i class="fas fa-book-open mr-2"></i>
+                        Installation Guide
+                    </a>
                 </div>
             </div>
         </section>
