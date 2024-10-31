@@ -1,7 +1,3 @@
-Here's the cleaned-up version of your installation guide:
-
----
-
 # Installation Guide
 
 After installing, launch Aether Terminal:
@@ -122,6 +118,3 @@ Aether Terminal offers various customization options to tailor your experience:
    Prompt updated.
    Aether >
    ```
-
-
-Enjoy using Aether Terminal, and feel free to reach out if you have any questions or feedback!
