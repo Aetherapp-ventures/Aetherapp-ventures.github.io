@@ -599,12 +599,12 @@
                 <div class="text-2xl font-bold glitch">Aetherapp</div>
             </div>
             <ul class="hidden md:flex space-x-8">
-                <li><a href="#features" class="hover:text-white/80 transition-colors">Features</a></li>
-                <li><a href="#demo" class="hover:text-white/80 transition-colors">Demo</a></li>
-                <li><a href="#try-it" class="hover:text-white/80 transition-colors">Try It</a></li>
-                <li><a href="#memes" class="hover:text-white/80 transition-colors">Memes</a></li>
-                <li><a href="#faq" class="hover:text-white/80 transition-colors">FAQ</a></li>
-                <li><a href="#contact" class="hover:text-white/80 transition-colors">Contact</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#showcase" class="nav-link">Showcase</a></li>
+                <li><a href="#plugins" class="nav-link">Plugins</a></li>
+                <li><a href="#themes" class="nav-link">Themes</a></li>
+                <li><a href="/docu.html" class="nav-link special-link">Documentation</a></li>
+                <li><a href="#community" class="nav-link">Community</a></li>
             </ul>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/20 transition-colors">
@@ -635,35 +635,26 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
                     <div class="text-left">
                         <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
-                            The Future of Terminal Experience
+                            Aether Terminal
                         </h1>
                         <p class="text-xl md:text-2xl mb-8 text-white/90">
-                            Experience the next evolution in terminal emulation. Built for developers who demand both power and elegance.
+                            A modern terminal emulator designed for developers who demand power, flexibility, and elegance.
+                            Built with performance and customization in mind.
                         </p>
                         <div class="flex flex-wrap gap-4">
                             <a href="/downloads/aether_terminal.exe" class="neo-button group">
                                 <span class="relative z-10 flex items-center">
                                     <i class="fas fa-download mr-2"></i>
-                                    Download v1.1.0
-                                    <span class="ml-2 text-sm opacity-70">| Windows 10/11</span>
+                                    Download for Windows
+                                    <span class="ml-2 text-sm opacity-70">| v1.1.0</span>
                                 </span>
                             </a>
-                            <a href="#features" class="glass-button">
+                            <a href="/docu.html" class="glass-button">
                                 <span class="relative z-10 flex items-center">
-                                    <i class="fas fa-arrow-right mr-2"></i>
-                                    Explore Features
+                                    <i class="fas fa-book mr-2"></i>
+                                    Documentation
                                 </span>
                             </a>
-                        </div>
-                        <div class="mt-8 flex items-center gap-8">
-                            <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400 mr-2"></i>
-                                <span>4.9/5 Rating</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-download text-green-400 mr-2"></i>
-                                <span>10K+ Downloads</span>
-                            </div>
                         </div>
                     </div>
                     <div class="terminal-showcase">
@@ -710,43 +701,113 @@
             </div>
         </section>
 
-        <section id="features" class="py-20 bg-gray-900">
+        <section id="key-features" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Powerful Features</h2>
-                    <p class="text-xl text-gray-400">Everything you need in a modern terminal emulator</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="feature-card glass-card hover:scale-105 transition-all duration-300">
-                        <div class="feature-icon mb-6">
-                            <i class="fas fa-terminal text-4xl text-purple-500"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Smart Command Completion</h3>
-                        <p class="text-gray-400">Context-aware suggestions and history-based command completion to boost your productivity.</p>
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Core Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-columns"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Advanced Split Panes</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Horizontal & Vertical Splits</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Drag & Drop Reorganization</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Individual Pane Settings</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Layout Presets</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-terminal"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Shell Integration</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>PowerShell Support</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>WSL Integration</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Shell Configs</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Environment Management</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mb-6 text-purple-500"><i class="fas fa-paint-brush"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Customization</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Color Schemes</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Font Ligatures</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Custom Keybindings</li>
+                            <li><i class="fas fa-check text-green-400 mr-2"></i>Theme Editor</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="workflow" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
+        <section id="productivity" class="py-20 bg-gray-900">
             <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="terminal-demo glass-card">
-                    </div>
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Built for Productivity</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div class="space-y-8">
-                        <h2 class="text-4xl font-bold gradient-text">Streamlined Workflow</h2>
-                        <div class="space-y-4">
-                            <div class="workflow-item flex items-start gap-4">
-                                <div class="workflow-icon p-2 rounded-lg bg-purple-500/20">
-                                    <i class="fas fa-code text-purple-500"></i>
+                        <div class="glass-card">
+                            <h3 class="text-xl font-bold mb-4">Command Completion</h3>
+                            <p class="text-gray-300 mb-4">Intelligent command suggestions based on your history and current context.</p>
+                            <div class="font-mono bg-black/30 p-4 rounded-lg">
+                                <div class="typing-effect">
+                                    <span class="text-green-400">$</span>
+                                    <span class="text-white/90">docker co</span>
+                                    <span class="text-gray-500">mpose up</span>
                                 </div>
-                                <div>
-                                    <h3 class="text-xl font-bold mb-2">Split Panes</h3>
-                                    <p class="text-gray-400">Work on multiple tasks simultaneously with customizable split views.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card">
+                            <h3 class="text-xl font-bold mb-4">Search & Navigation</h3>
+                            <p class="text-gray-300 mb-4">Quick command history search and directory navigation.</p>
+                            <div class="font-mono bg-black/30 p-4 rounded-lg">
+                                <div class="typing-effect-delay-1">
+                                    <span class="text-green-400">$</span>
+                                    <span class="text-white/90">ctrl+r: search history</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="terminal-3d glass-card">
+                        <div class="terminal-header flex justify-between items-center p-3 bg-gray-900/50">
+                            <div class="flex items-center gap-2">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="text-sm text-white/70">~ productivity-demo</span>
+                            </div>
+                        </div>
+                        <div class="terminal-content p-4 font-mono text-sm">
+                            <!-- Add interactive terminal content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="shortcuts" class="py-20 bg-gradient-to-b from-gray-900 to-primary/20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Keyboard Shortcuts</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card">
+                        <h3 class="text-xl font-bold mb-4">Window Management</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-300">Split Horizontally</span>
+                                <kbd class="px-2 py-1 bg-black/30 rounded">Ctrl+Shift+H</kbd>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-300">Split Vertically</span>
+                                <kbd class="px-2 py-1 bg-black/30 rounded">Ctrl+Shift+V</kbd>
+                            </div>
+                            <!-- Add more shortcuts -->
+                        </div>
+                    </div>
+                    <!-- Add more shortcut categories -->
                 </div>
             </div>
         </section>
@@ -779,6 +840,14 @@
     </div>
 
     <div class="cursor-blob"></div>
+
+    <div class="fixed bottom-8 right-8 z-50">
+        <a href="/docu.html" 
+           class="neo-button floating pulse-animation flex items-center gap-2">
+            <i class="fas fa-book"></i>
+            <span>Documentation</span>
+        </a>
+    </div>
 
     <script>
         function createParticle() {
