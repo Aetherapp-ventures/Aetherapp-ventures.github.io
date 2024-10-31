@@ -1,19 +1,123 @@
-# Getting Started with Aether Terminal
+```markdown project="Aether Terminal" file="installation.md"
+...
+```
 
-## System Requirements
+git clone [https://github.com/Aetherapp-ventures/aether-terminal.git](https://github.com/Aetherapp-ventures/aether-terminal.git)
 
-- Windows 10 or Windows 11
-- 4GB RAM minimum (8GB recommended)
-- 500MB free disk space
-- Internet connection for AI features
+```plaintext
 
-## Quick Start Guide
+## Installation Steps
 
-1. Download Aether Terminal from the official website
-2. Run the installer (aether_terminal.exe)
-3. Launch Aether Terminal from the Start Menu
-4. Complete the initial setup wizard
+### Windows
 
-## First Steps
+1. If you downloaded the pre-built binary:
+- Run the `AetherTerminal-Setup.exe` file.
+- Follow the on-screen instructions in the installation wizard.
+- Choose your installation directory and preferred settings.
 
-### 1. Basic Navigation 
+2. If you're building from source:
+- Open a command prompt and navigate to the source directory.
+- Run the following commands:
+  ```
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build . --config Release
+  ```
+- The executable will be in the `build\Release` directory.
+
+### macOS
+
+1. For pre-built binary:
+- Open the downloaded `AetherTerminal.dmg` file.
+- Drag the Aether Terminal app to your Applications folder.
+
+2. For building from source:
+- Open Terminal and navigate to the source directory.
+- Run the following commands:
+  ```
+  mkdir build
+  cd build
+  cmake ..
+  make
+  ```
+- The executable will be in the `build` directory.
+
+### Linux
+
+1. For pre-built binary:
+- Extract the downloaded `.tar.gz` file:
+  ```
+  tar -xzvf AetherTerminal-Linux.tar.gz
+  ```
+- Move the extracted directory to your preferred location.
+
+2. For building from source:
+- Open a terminal and navigate to the source directory.
+- Run the following commands:
+  ```
+  mkdir build
+  cd build
+  cmake ..
+  make
+  ```
+- The executable will be in the `build` directory.
+
+## Verifying the Installation
+
+To verify that Aether Terminal has been installed correctly:
+
+1. Open a new terminal or command prompt.
+2. Run the following command:
+```
+
+aether_terminal --version
+
+```plaintext
+3. You should see the version number of Aether Terminal printed to the console.
+
+## Troubleshooting
+
+If you encounter any issues during installation, try the following:
+
+1. Ensure all [prerequisites](#prerequisites) are met.
+2. Check that you have necessary permissions (run as administrator on Windows or use `sudo` on macOS/Linux if needed).
+3. Verify that your system's PATH includes the Aether Terminal installation directory.
+4. For build issues, make sure you have the correct versions of CMake and your C++ compiler.
+
+If problems persist, please:
+
+- Check our [FAQ page](https://aether-terminal.com/faq)
+- Visit our [community forum](https://aether-terminal.com/forum)
+- Report the issue on our [GitHub repository](https://github.com/aether-terminal/aether-terminal/issues)
+
+## Updating Aether Terminal
+
+To update Aether Terminal to the latest version:
+
+1. For pre-built binaries:
+- Windows: Run the update checker from the Start menu.
+- macOS: Use the built-in update feature in the application.
+- Linux: Download the latest version and replace the existing installation.
+
+2. For source installations:
+- Pull the latest changes from the repository:
+  ```
+  git pull origin main
+  ```
+- Rebuild the project following the [installation steps](#installation-steps) for your OS.
+
+## Uninstalling
+
+To remove Aether Terminal from your system:
+
+- Windows: Use the "Add or remove programs" feature in Settings.
+- macOS: Drag the Aether Terminal app from Applications to the Trash.
+- Linux: Delete the Aether Terminal directory.
+
+For source installations, simply delete the cloned repository and build directory.
+
+Thank you for installing Aether Terminal! If you need help getting started, please refer to our [Getting Started Guide](getting-started.md).
+```
+
+These comprehensive guides should provide users with all the necessary information to install Aether Terminal and get started with its basic and advanced features. The guides are structured, detailed, and cover various scenarios and operating systems to ensure a smooth experience for all users.
