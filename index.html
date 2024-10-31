@@ -801,6 +801,30 @@
             animation: shine 3s linear infinite;
             z-index: -1;
         }
+
+        .char {
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .interactive-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .interactive-hover:hover {
+            transform: translateY(-5px);
+            color: #6200ea;
+        }
+
+        .gradient-text-hover {
+            background-size: 200% 200%;
+            background-position: 0% 0%;
+            transition: background-position 0.3s ease;
+        }
+
+        .gradient-text-hover:hover {
+            background-position: 100% 100%;
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">

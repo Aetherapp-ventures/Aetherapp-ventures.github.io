@@ -322,73 +322,133 @@ class SmoothMouseTrail {
 
 new SmoothMouseTrail();
 
-class CookieConsent {
+class ModernCookieBanner {
     constructor() {
-        this.cookieName = 'cookieConsent';
-        this.consentBanner = this.createBanner();
+        this.cookieName = 'aetherCookieConsent';
+        this.banner = this.createBanner();
         this.init();
     }
 
     createBanner() {
         const banner = document.createElement('div');
-        banner.className = 'cookie-consent-banner';
+        banner.className = 'modern-cookie-banner';
         banner.innerHTML = `
             <div class="cookie-content">
-                <p>We use cookies to enhance your experience. 
-                   By continuing to visit this site you agree to our use of cookies.</p>
-                <div class="cookie-buttons">
-                    <button class="accept-button">Accept</button>
-                    <button class="decline-button">Decline</button>
+                <div class="cookie-header">
+                    <i class="fas fa-cookie-bite text-2xl text-purple-500"></i>
+                    <h3 class="text-xl font-bold">Cookie Settings</h3>
+                </div>
+                <p class="cookie-text">
+                    We use cookies to enhance your browsing experience and analyze our traffic. 
+                    Please choose your preferences below.
+                </p>
+                <div class="cookie-options">
+                    <label class="cookie-option">
+                        <input type="checkbox" checked disabled>
+                        <span>Essential Cookies</span>
+                        <span class="text-sm text-gray-400">(Required)</span>
+                    </label>
+                    <label class="cookie-option">
+                        <input type="checkbox" id="analytics-cookies">
+                        <span>Analytics</span>
+                    </label>
+                </div>
+                <div class="cookie-actions">
+                    <button class="accept-all-btn">Accept All</button>
+                    <button class="save-preferences-btn">Save Preferences</button>
                 </div>
             </div>
         `;
 
         const style = document.createElement('style');
         style.textContent = `
-            .cookie-consent-banner {
+            .modern-cookie-banner {
                 position: fixed;
                 bottom: 2rem;
                 left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.8);
+                transform: translateX(-50%) translateY(100%);
+                background: rgba(17, 17, 17, 0.95);
                 backdrop-filter: blur(10px);
-                padding: 1.5rem 2rem;
-                border-radius: 1rem;
-                z-index: 9999;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                max-width: 500px;
+                border-radius: 1rem;
+                padding: 2rem;
                 width: 90%;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            .cookie-content {
+                max-width: 500px;
+                z-index: 9999;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                 color: white;
-                text-align: center;
             }
-            .cookie-buttons {
+
+            .modern-cookie-banner.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .cookie-content {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .cookie-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .cookie-text {
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .cookie-options {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cookie-option {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                cursor: pointer;
+            }
+
+            .cookie-option input[type="checkbox"] {
+                width: 1.2rem;
+                height: 1.2rem;
+                accent-color: #6200ea;
+            }
+
+            .cookie-actions {
                 display: flex;
                 gap: 1rem;
-                justify-content: center;
                 margin-top: 1rem;
             }
-            .cookie-buttons button {
-                padding: 0.5rem 1.5rem;
-                border: none;
+
+            .accept-all-btn, .save-preferences-btn {
+                padding: 0.75rem 1.5rem;
                 border-radius: 0.5rem;
+                border: none;
                 cursor: pointer;
-                transition: transform 0.2s ease;
+                transition: transform 0.2s ease, background-color 0.2s ease;
+                font-weight: 500;
             }
-            .cookie-buttons button:hover {
-                transform: translateY(-2px);
-            }
-            .accept-button {
+
+            .accept-all-btn {
                 background: #6200ea;
                 color: white;
+                flex: 1;
             }
-            .decline-button {
+
+            .save-preferences-btn {
                 background: rgba(255, 255, 255, 0.1);
                 color: white;
+                flex: 1;
+            }
+
+            .accept-all-btn:hover, .save-preferences-btn:hover {
+                transform: translateY(-2px);
             }
         `;
         document.head.appendChild(style);
@@ -398,18 +458,19 @@ class CookieConsent {
 
     init() {
         if (!this.getCookie(this.cookieName)) {
-            document.body.appendChild(this.consentBanner);
+            document.body.appendChild(this.banner);
             setTimeout(() => {
-                this.consentBanner.style.opacity = '1';
+                this.banner.classList.add('show');
             }, 100);
 
-            this.consentBanner.querySelector('.accept-button').addEventListener('click', () => {
-                this.setCookie(this.cookieName, 'accepted', 365);
+            this.banner.querySelector('.accept-all-btn').addEventListener('click', () => {
+                this.setCookie(this.cookieName, 'all', 365);
                 this.hideBanner();
             });
 
-            this.consentBanner.querySelector('.decline-button').addEventListener('click', () => {
-                this.setCookie(this.cookieName, 'declined', 365);
+            this.banner.querySelector('.save-preferences-btn').addEventListener('click', () => {
+                const analytics = this.banner.querySelector('#analytics-cookies').checked;
+                this.setCookie(this.cookieName, analytics ? 'analytics' : 'essential', 365);
                 this.hideBanner();
             });
         }
@@ -418,27 +479,198 @@ class CookieConsent {
     setCookie(name, value, days) {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value};${expires};path=/`;
+        document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;SameSite=Lax`;
     }
 
     getCookie(name) {
-        const nameEQ = `${name}=`;
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
     }
 
     hideBanner() {
-        this.consentBanner.style.opacity = '0';
+        this.banner.classList.remove('show');
         setTimeout(() => {
-            this.consentBanner.remove();
-        }, 300);
+            this.banner.remove();
+        }, 500);
     }
 }
 
-new CookieConsent();
+document.addEventListener('DOMContentLoaded', () => {
+    new ModernCookieBanner();
+});
+
+// Add these new animation classes
+class TextSplitAnimation {
+    constructor(element) {
+        this.element = element;
+        this.originalText = element.innerText;
+        this.init();
+    }
+
+    init() {
+        // Split text into spans
+        this.element.innerHTML = this.originalText
+            .split('')
+            .map(char => `<span class="char">${char}</span>`)
+            .join('');
+
+        this.chars = this.element.querySelectorAll('.char');
+        this.addHoverEffect();
+    }
+
+    addHoverEffect() {
+        this.element.addEventListener('mouseover', () => {
+            this.chars.forEach((char, i) => {
+                char.style.transition = `transform 0.3s ease ${i * 0.03}s, color 0.3s ease ${i * 0.03}s`;
+                char.style.transform = 'translateY(-10px)';
+                char.style.color = '#6200ea';
+            });
+        });
+
+        this.element.addEventListener('mouseout', () => {
+            this.chars.forEach((char, i) => {
+                char.style.transition = `transform 0.3s ease ${i * 0.03}s, color 0.3s ease ${i * 0.03}s`;
+                char.style.transform = 'translateY(0)';
+                char.style.color = '';
+            });
+        });
+    }
+}
+
+// Enhanced mouse trail effect
+class EnhancedMouseTrail {
+    constructor() {
+        this.points = [];
+        this.init();
+    }
+
+    init() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.7;
+        `;
+        document.body.appendChild(canvas);
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        document.addEventListener('mousemove', e => {
+            this.points.push({
+                x: e.clientX,
+                y: e.clientY,
+                age: 0
+            });
+        });
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw points
+            for (let i = 0; i < this.points.length; i++) {
+                const point = this.points[i];
+                point.age++;
+                
+                if (point.age > 30) {
+                    this.points.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                const opacity = 1 - point.age / 30;
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(98, 0, 234, ${opacity})`;
+                ctx.fill();
+            }
+
+            // Draw lines between points
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(98, 0, 234, 0.5)';
+            ctx.lineWidth = 2;
+            
+            for (let i = 0; i < this.points.length - 1; i++) {
+                const point = this.points[i];
+                const nextPoint = this.points[i + 1];
+                
+                ctx.moveTo(point.x, point.y);
+                ctx.lineTo(nextPoint.x, nextPoint.y);
+            }
+            ctx.stroke();
+
+            requestAnimationFrame(animate);
+        };
+        animate();
+    }
+}
+
+// Add magnetic effect to all interactive elements
+class MagneticEffect {
+    constructor(elements) {
+        this.elements = elements;
+        this.init();
+    }
+
+    init() {
+        this.elements.forEach(el => {
+            el.addEventListener('mousemove', e => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                el.style.transition = 'transform 0.1s ease';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+                el.style.transition = 'transform 0.3s ease';
+            });
+        });
+    }
+}
+
+// Initialize all animations
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize text split animations for headings
+    document.querySelectorAll('h1, h2').forEach(heading => {
+        new TextSplitAnimation(heading);
+    });
+
+    // Initialize enhanced mouse trail
+    new EnhancedMouseTrail();
+
+    // Add magnetic effect to interactive elements
+    new MagneticEffect(document.querySelectorAll('.neo-button, .glass-card'));
+
+    // Add scroll-triggered animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.opacity = '1';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.glass-card, .feature-card').forEach(el => {
+        el.style.transform = 'translateY(50px)';
+        el.style.opacity = '0';
+        el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(el);
+    });
+});
