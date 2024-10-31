@@ -39,7 +39,6 @@ cls        - Clears the screen
 echo       - Prints text to the console
 time       - Displays the current system time
 exit       - Exits Aether Terminal
-...
 
 λ echo Hello, Aether Terminal!
 Hello, Aether Terminal!
@@ -51,6 +50,8 @@ Current time: 2023-05-24 15:30:45
 ## Exploring Features
 
 ### 1. File Operations
+
+Example usage:
 
 ```bash
 λ create myfile.txt
@@ -153,7 +154,6 @@ cls        - Clears the screen
 echo       - Prints text to the console
 time       - Displays the current system time
 exit       - Exits Aether Terminal
-...
 
 λ echo Hello, Aether Terminal!
 Hello, Aether Terminal!
