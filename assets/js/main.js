@@ -89,4 +89,118 @@ function initializeButtonEffects() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeButtonEffects();
+});
+
+class AdvancedParticle {
+    constructor() {
+        this.particle = document.createElement('div');
+        this.particle.className = 'advanced-particle';
+        this.reset();
+        document.getElementById('particles').appendChild(this.particle);
+    }
+
+    reset() {
+        const size = Math.random() * 10 + 5;
+        const hue = Math.random() * 60 + 230;
+        
+        this.particle.style.width = `${size}px`;
+        this.particle.style.height = `${size}px`;
+        this.particle.style.background = `hsl(${hue}, 70%, 70%)`;
+        this.particle.style.boxShadow = `0 0 ${size * 2}px hsl(${hue}, 70%, 70%)`;
+        
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        
+        this.particle.style.left = `${this.x}px`;
+        this.particle.style.top = `${this.y}px`;
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > window.innerWidth || 
+            this.y < 0 || this.y > window.innerHeight) {
+            this.reset();
+        }
+
+        this.particle.style.left = `${this.x}px`;
+        this.particle.style.top = `${this.y}px`;
+    }
+}
+
+const particles = Array.from({ length: 50 }, () => new AdvancedParticle());
+
+function updateParticles() {
+    particles.forEach(particle => particle.update());
+    requestAnimationFrame(updateParticles);
+}
+
+updateParticles();
+
+class AdvancedCursor {
+    constructor() {
+        this.cursor = document.querySelector('.cursor-blob');
+        this.cursorDot = document.querySelector('.cursor-dot');
+        this.pos = { x: 0, y: 0 };
+        this.mouse = { x: 0, y: 0 };
+        this.speed = 0.1;
+        
+        this.init();
+    }
+
+    init() {
+        document.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+
+        this.updateCursor();
+    }
+
+    updateCursor() {
+        this.pos.x += (this.mouse.x - this.pos.x) * this.speed;
+        this.pos.y += (this.mouse.y - this.pos.y) * this.speed;
+
+        this.cursor.style.transform = `translate(${this.pos.x}px, ${this.pos.y}px) scale(1)`;
+        this.cursorDot.style.transform = `translate(${this.mouse.x}px, ${this.mouse.y}px)`;
+
+        requestAnimationFrame(() => this.updateCursor());
+    }
+}
+
+new AdvancedCursor();
+
+class ParallaxScroll {
+    constructor() {
+        this.sections = document.querySelectorAll('section');
+        this.init();
+    }
+
+    init() {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            this.sections.forEach(section => {
+                const speed = section.dataset.speed || 0.5;
+                const yPos = -(scrolled * speed);
+                section.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    }
+}
+
+new ParallaxScroll();
+
+document.querySelectorAll('.neo-button').forEach(button => {
+    button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        button.style.setProperty('--x', `${x}px`);
+        button.style.setProperty('--y', `${y}px`);
+    });
 }); 
