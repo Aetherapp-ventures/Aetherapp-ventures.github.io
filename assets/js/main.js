@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ModernCookieBanner();
 });
 
-// Add these new animation classes
+
 class TextSplitAnimation {
     constructor(element) {
         this.element = element;
@@ -818,4 +818,77 @@ document.addEventListener('DOMContentLoaded', () => {
     new GlowingCursor();
     new InteractiveStars();
     new MagneticLinks();
+});
+
+class CookieManager {
+    constructor() {
+        this.cookieName = 'aetherapp_consent';
+        this.cookieConsent = document.getElementById('cookie-consent');
+        this.init();
+    }
+
+    init() {
+        if (!this.getCookie(this.cookieName)) {
+            setTimeout(() => {
+                if (this.cookieConsent) {
+                    this.cookieConsent.style.transform = 'translateY(0)';
+                }
+            }, 1000);
+        }
+
+        this.initEventListeners();
+    }
+
+    initEventListeners() {
+        const acceptBtn = document.getElementById('accept-cookies');
+        const rejectBtn = document.getElementById('reject-cookies');
+        const analyticsCheckbox = document.getElementById('analytics-cookies');
+
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                this.setCookie(this.cookieName, 'accepted', 365);
+                this.setCookie('analytics_consent', 'true', 365);
+                this.hideBanner();
+            });
+        }
+
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', () => {
+                this.setCookie(this.cookieName, 'rejected', 365);
+                this.setCookie('analytics_consent', 'false', 365);
+                this.hideBanner();
+            });
+        }
+
+        if (analyticsCheckbox) {
+            const savedAnalytics = this.getCookie('analytics_consent');
+            if (savedAnalytics === 'true') {
+                analyticsCheckbox.checked = true;
+            }
+        }
+    }
+
+    hideBanner() {
+        if (this.cookieConsent) {
+            this.cookieConsent.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                this.cookieConsent.style.display = 'none';
+            }, 500);
+        }
+    }
+
+    setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;SameSite=Lax`;
+    }
+
+    getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new CookieManager();
 });
