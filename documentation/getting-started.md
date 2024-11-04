@@ -11,9 +11,7 @@ git clone https://github.com/Aetherapp-ventures/aether-terminal.git
 ### Windows
 
 1. If you downloaded the pre-built binary:
-   - Run the `AetherTerminal-Setup.exe` file
-   - Follow the on-screen instructions in the installation wizard
-   - Choose your installation directory and preferred settings
+   - Run the `Aether_terminal.exe` file
 
 2. If you're building from source:
    ```bash
